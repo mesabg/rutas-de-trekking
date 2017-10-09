@@ -1,0 +1,19 @@
+Descripción del proyecto:
+Se trata del desarrollo de  una App apuntada a los turistas donde se les brindará información de rutas, clima y todo lo necesario para recorrer las rutas de trekking en Argentina y Chile.
+
+Plataformas:
+La app funcionará para dispositivos Mobile (Android &  iOS) y podrá descargarse de los Stores. También presupuestamos en un módulo aparte el desarrollo para Windows Phone.
+TAREAS A REALIZAR:
+
+-Maquetación HTML/CSS:
+Incluye adaptación a todos los tamaños de pantalla, dispositivos  y diferentes relaciones aspecto.
+-Programación de la interfaz (navegación).
+-Integración con Google Maps.
+Se mostrarán los senderos en un mapa de google, así como también la ubicación     actual del usuario.
+-Integración con API del tiempo:
+Se usará un servicio público para determinar el clima de cada lugar, en tiempo real.
+-Google Analytics:
+Sistema de Google para llevar estadísticas de uso por parte de los usuarios.
+-Compilación para Android & iOS.
+-Crear publicación en PlayStore & AppStore.
+Estimamos un tiempo total de desarrollo de entre 4 y6 semanas, desde dada la señal de inicio hasta el momento de  publicación.
