@@ -7,11 +7,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 /**
  * Pages Dependencies
  */
-//import { ParkApnPage } from './apn';
-import { ParkInfoPage } from './info/info.page';
-/*import { ParkLodgmentPage } from './lodgment';
+import { ParkApnPage } from './apn';
+import { ParkInfoPage } from './info';
+import { ParkLodgmentPage } from './lodgment';
 import { ParkRoutesPage } from './routes';
-import { ParkSearchPage } from './search';*/
+import { ParkSearchPage } from './search';
 
 
 @IonicPage({
@@ -24,11 +24,11 @@ import { ParkSearchPage } from './search';*/
 })
 export class ParkPage implements OnInit {
     //-- Pages Indexing
-	//public ApnPageRoot:any = ParkApnPage;
+	public ApnPageRoot:any = ParkApnPage;
 	public InfoPageRoot:any = ParkInfoPage;
-	/*public LodgmentPageRoot:any = ParkLodgmentPage;
+	public LodgmentPageRoot:any = ParkLodgmentPage;
 	public RoutesPageRoot:any = ParkRoutesPage;
-	public SearchPageRoot:any = ParkSearchPage;*/
+	public SearchPageRoot:any = ParkSearchPage;
 
 	constructor(public navCtrl:NavController, public navParams:NavParams) { }
 	ngOnInit() { }

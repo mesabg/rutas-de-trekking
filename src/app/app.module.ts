@@ -11,7 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
  * Local dependencies
  */
 import { Layout } from './layout';
-import { ParkInfoPageModule } from './@pages/park/info/info.page.module';
+import { ParkSyncModule } from './@pages/park';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { ParkInfoPageModule } from './@pages/park/info/info.page.module';
 	],
 	imports: [
 		BrowserModule,
-		ParkInfoPageModule,
+		ParkSyncModule,
 		IonicModule.forRoot(Layout),
 	],
 	bootstrap: [IonicApp],

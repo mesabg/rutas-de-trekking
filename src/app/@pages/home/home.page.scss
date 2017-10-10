@@ -1,3 +1,61 @@
 app-home-page{
-    
+    ion-header{
+        ion-navbar.toolbar{
+            min-height: 120px;
+        }
+    }
+
+    ion-content{
+        $gaps: 5rem;
+
+        .title{
+            width: 70%;
+            margin: 0 auto;
+            padding-top: $gaps;
+            padding-bottom: $gaps;
+
+            h2{
+                color: #464646;
+                text-align: center;
+            }
+        }
+
+        .pais{
+            padding-top: $gaps;
+            padding-bottom: $gaps;
+
+            div{
+                text-align: center;
+                img{
+                    width: 80% !important;
+                    display: inline-block;
+                }
+            }
+        }
+
+        .options{
+            list-style: none;
+            padding: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            li{
+                display: inline-block;
+
+                span{
+                    display: table;
+                    text-align: center;
+                    width: 100%;
+
+                    img{
+                        display: inline-block;
+                        height: 45px;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+    }
 }

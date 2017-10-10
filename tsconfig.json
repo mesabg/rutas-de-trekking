@@ -24,6 +24,9 @@
     "rewriteTsconfig": false
   },
   "paths":{
+    //-- Outer Structure
+    "@ms/components": ["./@ms/components"],
+
     //-- Inner Structure
     "@app/api": ["./app/@api"],
     "@app/components": ["./app/@components"],

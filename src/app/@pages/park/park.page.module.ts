@@ -9,7 +9,6 @@ import { IonicPageModule } from 'ionic-angular';
  * Local dependencies (Tabs)
  */
 import { ParkPage } from './park.page';
-import { ParkInfoPage } from './info';
 
 @NgModule({
 	imports: [

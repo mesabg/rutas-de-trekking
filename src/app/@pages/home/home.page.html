@@ -1,11 +1,41 @@
 <ion-header>
-	<ion-navbar>
+	<ion-navbar color="primary">
 		<ion-title>
-			Home
+			<img src="assets/images/rutas-de-trekking-title.png" alt="Rutas de Trekking">
 		</ion-title>
 	</ion-navbar>
 </ion-header>
 		
 <ion-content padding>
-	<button (click)="routing('app-park-page')">About Us</button>
+	<div class="title">
+		<h2>Por favor seleccione el país dónde hacer trekking:</h2>
+	</div>
+
+	<div class="pais" #paises>
+		<img src="assets/images/glaciares.png" alt="Parque Nacional Los Glaciares">
+		<img src="assets/images/paine.png" alt="Parque Nacional Torres del Paine">
+	</div>
+
+	<ul class="options" #options>
+		<li>
+			<span><img src="assets/icons/png/about-black.png" alt="About"></span>
+			<span>Acerca de</span>
+		</li>
+		<li>
+			<span><img src="assets/icons/png/feedback-black.png" alt="Feedback"></span>
+			<span>Feedback</span>
+		</li>
+		<li>
+			<span><img src="assets/icons/png/weather-black.png" alt="Weather"></span>
+			<span>Clima</span>
+		</li>
+		<li>
+			<span><img src="assets/icons/png/search-black.png" alt="Search"></span>
+			<span>Buscar</span>
+		</li>
+		<li>
+			<span><img src="assets/icons/png/configuration-black.png" alt="Configuration"></span>
+			<span>Ajustes</span>
+		</li>
+	</ul>
 </ion-content>
