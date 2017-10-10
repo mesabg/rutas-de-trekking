@@ -6,23 +6,26 @@ app-home-page{
     }
 
     ion-content{
-        $gaps: 5rem;
+        $gap1: 7vh;
+        $gap2: 4vh;
 
         .title{
             width: 70%;
             margin: 0 auto;
-            padding-top: $gaps;
-            padding-bottom: $gaps;
+            padding-top: $gap1;
+            padding-bottom: $gap1;
+            @media (min-width: 0px) and (max-width: 320px) { padding-bottom: $gap2; padding-top: $gap2; }
 
             h2{
-                color: #464646;
+                color: #a9a9a9;
                 text-align: center;
             }
         }
 
         .pais{
-            padding-top: $gaps;
-            padding-bottom: $gaps;
+            padding-top: $gap1;
+            padding-bottom: $gap1;
+            @media (min-width: 0px) and (max-width: 320px) { padding-bottom: $gap2; padding-top: $gap2; }
 
             div{
                 text-align: center;
@@ -36,10 +39,12 @@ app-home-page{
         .options{
             list-style: none;
             padding: 0;
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
+            padding-left: 5px;
+            padding-right: 5px;
 
             li{
                 display: inline-block;

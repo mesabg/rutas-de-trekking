@@ -9,5 +9,9 @@
 
 
 h2{
-    font-size: 1.5em;
+    font-size: 1.5em !important;
+
+    @media screen and (max-width: 320px) {
+        font-size: 1.2em !important;
+    }
 }
