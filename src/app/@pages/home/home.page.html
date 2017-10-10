@@ -17,23 +17,23 @@
 	</div>
 
 	<ul class="options" #options>
-		<li>
+		<li (click)="navCtrl.push('app-about-us-page')">
 			<span><img src="assets/icons/png/about-black.png" alt="About"></span>
 			<span>Acerca de</span>
 		</li>
-		<li>
+		<li (click)="navCtrl.push('app-feedback-page')">
 			<span><img src="assets/icons/png/feedback-black.png" alt="Feedback"></span>
 			<span>Feedback</span>
 		</li>
-		<li>
+		<li (click)="navCtrl.push('app-weather-page')">
 			<span><img src="assets/icons/png/weather-black.png" alt="Weather"></span>
 			<span>Clima</span>
 		</li>
-		<li>
+		<li (click)="navCtrl.push('app-search-page')">
 			<span><img src="assets/icons/png/search-black.png" alt="Search"></span>
 			<span>Buscar</span>
 		</li>
-		<li>
+		<li (click)="navCtrl.push('app-configuration-page')">
 			<span><img src="assets/icons/png/configuration-black.png" alt="Configuration"></span>
 			<span>Ajustes</span>
 		</li>

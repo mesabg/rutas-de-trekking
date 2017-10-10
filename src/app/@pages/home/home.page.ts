@@ -42,7 +42,7 @@ export class HomePage implements OnInit, AfterViewInit {
 	private $paises:SlickJS;
 	private $options:SlickJS;
 
-	constructor(public navCtrl:NavController, public navParams:NavParams) { }
+	constructor(public navCtrl:NavController, public navParams:NavParams) {}
 
 	/**
 	 * Events
