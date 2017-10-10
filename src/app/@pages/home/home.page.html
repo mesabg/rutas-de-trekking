@@ -12,8 +12,14 @@
 	</div>
 
 	<div class="pais" #paises>
-		<img src="assets/images/glaciares.png" alt="Parque Nacional Los Glaciares">
-		<img src="assets/images/paine.png" alt="Parque Nacional Torres del Paine">
+		<img 
+			src="assets/images/glaciares.png" 
+			alt="Parque Nacional Los Glaciares"
+			(click)="navCtrl.push('app-parks-page', {'country': 'argentina'})">
+		<img 
+			src="assets/images/paine.png" 
+			alt="Parque Nacional Torres del Paine"
+			(click)="navCtrl.push('app-parks-page', {'country': 'chile'})">
 	</div>
 
 	<ul class="options" #options>
