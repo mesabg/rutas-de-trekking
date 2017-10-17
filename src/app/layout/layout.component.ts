@@ -1,7 +1,7 @@
 /**
  * Global dependencies
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -9,7 +9,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 @Component({
 	selector: 'app-layout',
-	templateUrl: './layout.component.html'
+	templateUrl: './layout.component.html',
+	encapsulation: ViewEncapsulation.None
 })
 export class LayoutComponent implements OnInit {
 	rootPage:string = 'app-home-page';

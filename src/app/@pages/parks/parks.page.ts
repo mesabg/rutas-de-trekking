@@ -1,7 +1,7 @@
 /**
  * Global dependencies
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -17,7 +17,8 @@ import { Park } from '../../#interfaces';
 })
 @Component({
 	selector: 'app-parks-page',
-	templateUrl: './parks.page.html'
+	templateUrl: './parks.page.html',
+	encapsulation: ViewEncapsulation.None
 })
 export class ParksPage implements OnInit {
 	/**

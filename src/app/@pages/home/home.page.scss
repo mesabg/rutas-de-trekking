@@ -3,6 +3,12 @@ app-home-page{
         ion-navbar.toolbar{
             min-height: 120px;
         }
+
+        ion-title{
+            & > div{
+                text-align: center;
+            }
+        }
     }
 
     ion-content{

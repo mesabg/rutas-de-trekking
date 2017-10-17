@@ -1,7 +1,7 @@
 /**
  * Global dependencies
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
@@ -11,7 +11,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 @Component({
 	selector: 'app-about-us-page',
-	templateUrl: './about-us.page.html'
+	templateUrl: './about-us.page.html',
+	encapsulation: ViewEncapsulation.None
 })
 export class AboutUsPage implements OnInit {
 	constructor(public navCtrl:NavController, public navParams:NavParams) { }

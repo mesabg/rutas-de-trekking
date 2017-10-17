@@ -1,6 +1,9 @@
 app-parks-page{
     ion-header{
         ion-navbar{
+            position: relative;
+            min-height: 30px;
+            max-height: 200px;
             padding-left: 0px !important;
             padding-right: 0px !important;
             padding-top: 0px !important;
@@ -8,18 +11,38 @@ app-parks-page{
             
             & > button > span > span { display: none !important; }
 
-            ion-title{
-                padding: 0 !important;
-                padding-left: 40px !important;
-                padding-right: 40px !important;
+            & > button {
+                position: absolute;
+            }
 
-                div{
-                    text-transform: uppercase;
-                    text-overflow: initial !important;
-                    white-space: initial !important;
-                    font-size: 2.3rem !important;
+            & > div.toolbar-content {
+
+                & > ion-title{
+                    position: absolute;
+                    z-index: 2;
+                    top: 0;
+                    bottom: 0;
+                    padding: 0 !important;
+                    padding-left: 45px !important;
+                    padding-right: 45px !important;
+    
+                    & > div{
+                        font-weight: bold;
+                        text-align: center;
+                        text-transform: uppercase;
+                        text-overflow: initial !important;
+                        white-space: initial !important;
+                        font-size: 2.5rem !important;
+                        padding: 0;
+                    }
                 }
             }
+        }
+    }
+
+    ion-content{
+        .fixed-content, .scroll-content{
+            margin-top: 160px;
         }
     }
 }
