@@ -18,6 +18,13 @@ import { Park } from '../../#interfaces';
 @Component({
 	selector: 'app-parks-page',
 	templateUrl: './parks.page.html',
+	styles: [`
+	app-parks-page{
+		.toolbar-background{
+		background-color: red !important;
+		}
+	}
+	`],
 	encapsulation: ViewEncapsulation.None
 })
 export class ParksPage implements OnInit {

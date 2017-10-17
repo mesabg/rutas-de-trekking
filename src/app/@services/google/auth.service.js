@@ -1,5 +1,7 @@
 const googleAuth = require('google-auth-library');
 
-module.exports = {
-    msg: "Hello Word"
-};
+class doId{
+
+}
+
+module.exports = doId;
