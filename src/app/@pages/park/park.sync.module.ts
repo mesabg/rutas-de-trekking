@@ -14,8 +14,9 @@ import { ParkLodgmentPage } from './lodgment';
 import { ParkRoutesPage } from './routes';
 import { ParkSearchPage } from './search';
 
-import { ParkService } from './park.service';
-
+/**
+ * This module contains all the tabs which are gonna be used into the park page
+ */
 @NgModule({
 	imports: [
 		CommonModule,
@@ -41,9 +42,6 @@ import { ParkService } from './park.service';
 		ParkLodgmentPage,
 		ParkRoutesPage,
 		ParkSearchPage
-	],
-	providers:[
-		ParkService
 	]
 })
 export class ParkSyncModule { }

@@ -1,7 +1,7 @@
 <ion-tabs>
-    <ion-tab [root]="InfoPageRoot" tabTitle="Info" tabIcon="search"></ion-tab>
+    <ion-tab [root]="InfoPageRoot" tabTitle="Info" tabIcon="search" [rootParams]="navParams.get('park')"></ion-tab>
     <!--<ion-tab [root]="SearchPageRoot" tabTitle="Search" tabIcon="search"></ion-tab>-->
-    <ion-tab [root]="RoutesPageRoot" tabTitle="Routes" tabIcon="information-circle"></ion-tab>
-    <ion-tab [root]="LodgmentPageRoot" tabTitle="Lodgment" tabIcon="information-circle"></ion-tab>
-    <ion-tab [root]="ApnPageRoot" tabTitle="APN" tabIcon="information-circle"></ion-tab>
+    <ion-tab [root]="RoutesPageRoot" tabTitle="Routes" tabIcon="information-circle" [rootParams]="navParams.get('park')"></ion-tab>
+    <ion-tab [root]="LodgmentPageRoot" tabTitle="Lodgment" tabIcon="information-circle" [rootParams]="navParams.get('park')"></ion-tab>
+    <ion-tab [root]="ApnPageRoot" tabTitle="APN" tabIcon="information-circle" [rootParams]="navParams.get('park')"></ion-tab>
 </ion-tabs>

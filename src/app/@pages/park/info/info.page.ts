@@ -1,10 +1,16 @@
 /**
  * Global dependencies
  */
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { 
+	Component, 
+	OnInit, 
+	AfterViewInit } from '@angular/core';
+import { NavParams } from 'ionic-angular';
 
-//-- Services
-import { ParkService } from '../park.service';
+/**
+ * Local dependencies
+ */
+import { Park } from '../../../#interfaces';
 
 
 @Component({
@@ -12,15 +18,23 @@ import { ParkService } from '../park.service';
 	templateUrl: './info.page.html'
 })
 export class ParkInfoPage implements OnInit, AfterViewInit {
-	constructor(public parkService:ParkService) { }
-
-	ngOnInit() { }
-	ngAfterViewInit() { 
-		let self:ParkInfoPage = this;
-		setTimeout(function(){
-			console.log("Park (info - tab) :: ", self.parkService.get());
-		}, 50);
+	public description:string = '';
+	constructor(public navParams: NavParams) {
+		this.description = this.navParams.data['description'];
 	}
+
+	/**
+	 * Events
+	 */
+	ngOnInit() { }
+	ngAfterViewInit() { }
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
+
+	/**
+	 * Actions
+	 */
+	public load(park:Park):void{
+		//this.park = park;
+	}
 }

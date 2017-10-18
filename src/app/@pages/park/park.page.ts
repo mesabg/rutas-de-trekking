@@ -1,7 +1,7 @@
 /**
  * Global dependencies
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -13,9 +13,10 @@ import { ParkLodgmentPage } from './lodgment';
 import { ParkRoutesPage } from './routes';
 import { ParkSearchPage } from './search';
 
-//-- Services
-import { ParkService } from './park.service';
-
+/**
+ * Local dependencies
+ */
+import { Park } from '../../#interfaces';
 
 @IonicPage({
 	name: 'app-park-page',
@@ -25,7 +26,7 @@ import { ParkService } from './park.service';
 	selector: 'app-park-page',
 	templateUrl: './park.page.html'
 })
-export class ParkPage implements OnInit {
+export class ParkPage implements OnInit, AfterViewInit {
     //-- Pages Indexing
 	public ApnPageRoot:any = ParkApnPage;
 	public InfoPageRoot:any = ParkInfoPage;
@@ -35,18 +36,17 @@ export class ParkPage implements OnInit {
 
 	constructor(
 		public navCtrl:NavController, 
-		public navParams:NavParams,
-		public parkService:ParkService) {
+		public navParams:NavParams) {
 		console.log("Page slug :: ", this.navParams.get('park-slug'));
 		console.log("Park object :: ", this.navParams.get('park'));
-		this.parkService.set(this.navParams.get('park'));
-
-		let self:ParkPage = this;
-		setTimeout(function(){
-			console.log("Park (áge) :: ", self.parkService.get());
-		}, 50);
 	}
 	ngOnInit() { }
+	ngAfterViewInit() {
+		//-- Broadcast message
+		/*let park:Park = this.navParams.get('park');
+		(<ParkInfoPage>this.InfoPageRoot).load(park);*/
+	}
+
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
 }
