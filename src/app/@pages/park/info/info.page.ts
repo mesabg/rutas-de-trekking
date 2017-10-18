@@ -30,11 +30,4 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 	ngAfterViewInit() { }
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
-
-	/**
-	 * Actions
-	 */
-	public load(park:Park):void{
-		//this.park = park;
-	}
 }

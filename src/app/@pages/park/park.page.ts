@@ -40,13 +40,13 @@ export class ParkPage implements OnInit, AfterViewInit {
 		console.log("Page slug :: ", this.navParams.get('park-slug'));
 		console.log("Park object :: ", this.navParams.get('park'));
 	}
-	ngOnInit() { }
-	ngAfterViewInit() {
-		//-- Broadcast message
-		/*let park:Park = this.navParams.get('park');
-		(<ParkInfoPage>this.InfoPageRoot).load(park);*/
-	}
 
+	
+	/**
+	 * Events
+	 */
+	ngOnInit() { }
+	ngAfterViewInit() { }
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
 }

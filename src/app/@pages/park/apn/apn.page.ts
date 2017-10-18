@@ -2,6 +2,7 @@
  * Global dependencies
  */
 import { Component, OnInit } from '@angular/core';
+import { NavParams } from 'ionic-angular';
 
 /**
  * Local dependencies
@@ -15,7 +16,7 @@ import { Park } from '../../../#interfaces';
 })
 export class ParkApnPage implements OnInit {
 	private park:Park;
-	constructor() { }
+	constructor(public navParams: NavParams) { }
 
 	/**
 	 * Events
@@ -23,11 +24,4 @@ export class ParkApnPage implements OnInit {
 	ngOnInit() { }
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
-
-	/**
-	 * Actions
-	 */
-	public load(park:Park):void{
-		this.park = park;
-	}
 }
