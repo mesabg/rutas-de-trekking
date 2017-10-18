@@ -13,10 +13,13 @@ import { ParkLodgmentPage } from './lodgment';
 import { ParkRoutesPage } from './routes';
 import { ParkSearchPage } from './search';
 
+//-- Services
+import { ParkService } from './park.service';
+
 
 @IonicPage({
 	name: 'app-park-page',
-	segment: 'park'
+	segment: 'park/:park-slug'
 })
 @Component({
 	selector: 'app-park-page',
@@ -30,7 +33,19 @@ export class ParkPage implements OnInit {
 	public RoutesPageRoot:any = ParkRoutesPage;
 	public SearchPageRoot:any = ParkSearchPage;
 
-	constructor(public navCtrl:NavController, public navParams:NavParams) { }
+	constructor(
+		public navCtrl:NavController, 
+		public navParams:NavParams,
+		public parkService:ParkService) {
+		console.log("Page slug :: ", this.navParams.get('park-slug'));
+		console.log("Park object :: ", this.navParams.get('park'));
+		this.parkService.set(this.navParams.get('park'));
+
+		let self:ParkPage = this;
+		setTimeout(function(){
+			console.log("Park (áge) :: ", self.parkService.get());
+		}, 50);
+	}
 	ngOnInit() { }
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }

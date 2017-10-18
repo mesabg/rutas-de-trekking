@@ -14,6 +14,8 @@ import { ParkLodgmentPage } from './lodgment';
 import { ParkRoutesPage } from './routes';
 import { ParkSearchPage } from './search';
 
+import { ParkService } from './park.service';
+
 @NgModule({
 	imports: [
 		CommonModule,
@@ -39,6 +41,9 @@ import { ParkSearchPage } from './search';
 		ParkLodgmentPage,
 		ParkRoutesPage,
 		ParkSearchPage
+	],
+	providers:[
+		ParkService
 	]
 })
 export class ParkSyncModule { }

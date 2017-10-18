@@ -9,7 +9,12 @@
 		
 <ion-content padding>
 	<ion-list>
-		<ion-item *ngFor="let park of parks">
+		<ion-item 
+			*ngFor="let park of parks" 
+			(click)="navCtrl.push('app-park-page', {
+				'park-slug': park.slug,
+				'park': park
+			})">
 			<h2>{{park.name}}</h2>
 			<p>{{park.location}}</p>
 		</ion-item>
