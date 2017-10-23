@@ -4,6 +4,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicPageModule } from 'ionic-angular';
+import { AgmCoreModule } from '@agm/core';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Local dependencies (Tabs)
@@ -20,7 +22,10 @@ import { ParkSearchPage } from './search';
 @NgModule({
 	imports: [
 		CommonModule,
-		IonicPageModule
+		IonicPageModule,
+		AgmCoreModule.forRoot({
+			apiKey: 'AIzaSyCHbQP3rbxe8JLnQi0qsSRBAdcAw5_uUYg'
+		})
 	],
 	declarations:[
         ParkApnPage,
@@ -42,6 +47,9 @@ import { ParkSearchPage } from './search';
 		ParkLodgmentPage,
 		ParkRoutesPage,
 		ParkSearchPage
+	],
+	providers:[
+		Geolocation
 	]
 })
 export class ParkSyncModule { }
