@@ -1,5 +1,40 @@
 app-park-routes-page{
     agm-map {
-        height: 300px;
+        width: 100vw !important;
+        height: 68vh !important;
+    }
+
+    div.scroll-content{
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
+    .bottom-grid{
+        padding: 0px !important;
+        height: 10vh !important;
+
+        ion-row{
+            height: 10vh !important;
+            & > ion-col{
+                background-color: map-get($colors, secondary);
+                color: white;
+            }
+
+            & > ion-col:first-child{
+                background-color: white;
+                color: black;
+                padding: 0px;
+            }
+
+            .main-content{
+                ion-row{
+                    ion-col{
+                        background-color: white;
+                        color: black;
+                        padding: 0px;
+                    }
+                }
+            }
+        }
     }
 }

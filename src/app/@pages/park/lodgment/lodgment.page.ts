@@ -21,7 +21,11 @@ export class ParkLodgmentPage implements OnInit {
 	/**
 	 * Events
 	 */
-	ngOnInit() { }
-	ionViewDidLoad(){ }
+	ngOnInit() {
+		console.log("Im here");
+	}
+	ionViewDidLoad(){
+		console.log("This function");
+	}
 	ionViewWillLeave(){ }
 }

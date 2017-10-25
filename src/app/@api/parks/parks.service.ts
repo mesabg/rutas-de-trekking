@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 /**
  * Local dependencies
  */
-import { Park } from '../../../#interfaces';
+import { PersistsService } from '../persist';
+import { Park } from '../../#interfaces';
 import {
 	HEADER as HEADER_ARGENTINA, 
 	PARKS as PARKS_ARGENTINA } from './argentina.const';
@@ -30,11 +31,26 @@ export class ParksService {
 		chile: PARKS_CHILE
 	};
 
-	constructor() { }
+	constructor(private storage:PersistsService) { }
 
 	public getParksInformation(country:string):Observable<Park[]>{
 		return Observable.create(observer => {
+			this.storage.persist(`country.${country}`, this.parks[country]);
 			observer.next(this.parks[country]);
+			observer.complete();
+		});	
+	}
+
+	public getActualPark(country:string, parkSlug:string):Observable<Park>{
+		return Observable.create(observer => {
+			this.parks[country].forEach((park:Park, index:number) => {
+				if (park.slug === parkSlug){
+					this.storage.persist(`park.${park.slug}`, park);
+					observer.next(park);
+					observer.complete();
+				}
+			});
+			observer.next(undefined);
 			observer.complete();
 		});	
 	}

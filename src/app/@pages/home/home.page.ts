@@ -12,6 +12,7 @@ import {
 	IonicPage, 
 	NavController, 
 	NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs';
 
 /**
  * Plugins
@@ -23,6 +24,8 @@ import * as $ from "jquery";
  */
 import { SlickJS } from '../../../@ms/components';
 import { SETTINGS, SETTINGS_ICONS } from './home.page.slick-config';
+import { Country } from '../../#interfaces';
+import { CountriesService } from '../../@api';
 
 
 @IonicPage({
@@ -41,13 +44,19 @@ export class HomePage implements OnInit, AfterViewInit {
 	@ViewChild('options') private options:ElementRef;
 	private $paises:SlickJS;
 	private $options:SlickJS;
+	public countries:Observable<Country[]>;
 
-	constructor(public navCtrl:NavController, public navParams:NavParams) {}
+	constructor(
+		public navCtrl:NavController, 
+		public navParams:NavParams,
+		public api:CountriesService) {}
 
 	/**
 	 * Events
 	 */
-	ngOnInit() { }
+	ngOnInit() {
+		this.retrieve();
+	}
 	ngAfterViewInit() { this.startSlickJS(); }
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
@@ -58,5 +67,9 @@ export class HomePage implements OnInit, AfterViewInit {
 	private startSlickJS():void{
 		this.$paises = new SlickJS($(this.paises.nativeElement), SETTINGS);
 		this.$options = new SlickJS($(this.options.nativeElement), SETTINGS_ICONS);
+	}
+
+	private retrieve():void{
+		this.countries = this.api.getCountries();
 	}
 }

@@ -1,13 +1,44 @@
-<ion-header>
+<!--<ion-header>
 	<ion-navbar>
 		<ion-title>
 			Routes (Park)
 		</ion-title>
 	</ion-navbar>
-</ion-header>
+</ion-header>-->
 		
 <ion-content padding>
 	<agm-map [latitude]="lat" [longitude]="lng">
 		<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 	</agm-map>
+
+	<ion-grid class="bottom-grid">
+		<ion-row>
+			<ion-col col-7 class="main-content">
+				<ion-row>
+					<ion-col col-12>
+						<span>{{title}}</span>
+					</ion-col>
+
+					<ion-col>
+						<span>{{time}}</span>
+					</ion-col>
+					<ion-col>
+						<span>{{distance}}</span>
+					</ion-col>
+					<ion-col>
+						<span>{{velocity}}</span>
+					</ion-col>
+				</ion-row>
+			</ion-col>
+			<ion-col>
+				Icon
+			</ion-col>
+			<ion-col>
+				Icon
+			</ion-col>
+			<ion-col>
+				Empezar
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 </ion-content>

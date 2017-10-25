@@ -10,6 +10,7 @@ import { NavParams } from 'ionic-angular';
 /**
  * Local dependencies
  */
+import { ParksService } from '../../../@api';
 import { Park } from '../../../#interfaces';
 
 
@@ -18,16 +19,29 @@ import { Park } from '../../../#interfaces';
 	templateUrl: './info.page.html'
 })
 export class ParkInfoPage implements OnInit, AfterViewInit {
-	public description:string = '';
-	constructor(public navParams: NavParams) {
-		this.description = this.navParams.data['description'];
-	}
+	public description:string;
+	constructor(
+		public navParams: NavParams,
+		private api:ParksService) {}
 
 	/**
 	 * Events
 	 */
-	ngOnInit() { }
+	ngOnInit() {
+		this.retrieve();
+	}
 	ngAfterViewInit() { }
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
+
+
+	/**
+	 * Actions
+	 */
+	private retrieve():void{
+		this.api.getActualPark(this.navParams.data['country'], this.navParams.data['park-slug'])
+		.subscribe((park:Park) => {
+			this.description = park.description;
+		});
+	}
 }

@@ -21,7 +21,7 @@ import { ParkSyncModule } from './@pages/park';
 	imports: [
 		BrowserModule,
 		ParkSyncModule,
-		IonicModule.forRoot(Layout),
+		IonicModule.forRoot(Layout)
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [

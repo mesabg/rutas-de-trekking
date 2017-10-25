@@ -13,13 +13,10 @@
 
 	<div class="pais" #paises>
 		<img 
-			src="assets/images/glaciares.png" 
-			alt="Parque Nacional Los Glaciares"
-			(click)="navCtrl.push('app-parks-page', {'country': 'argentina'})">
-		<img 
-			src="assets/images/paine.png" 
-			alt="Parque Nacional Torres del Paine"
-			(click)="navCtrl.push('app-parks-page', {'country': 'chile'})">
+			*ngFor="let country of countries | async"
+			[attr.src]="country.image" 
+			[attr.alt]="country.name"
+			(click)="navCtrl.push('app-parks-page', {'country': country.slug })">
 	</div>
 
 	<ul class="options" #options>

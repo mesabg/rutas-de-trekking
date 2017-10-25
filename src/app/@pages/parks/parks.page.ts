@@ -3,11 +3,12 @@
  */
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs';
 
 /**
  * Local dependencies
  */
-import { ParksService } from '../../@services';
+import { ParksService } from '../../@api';
 import { Park } from '../../#interfaces';
 
 
@@ -31,7 +32,7 @@ export class ParksPage implements OnInit {
 	/**
 	 * Variables
 	 */
-	public parks:Park[];
+	public parks:Observable<Park[]>;
 	public header:{img:string, title:string};
 
 	constructor(
@@ -52,9 +53,7 @@ export class ParksPage implements OnInit {
 	 * Actions
 	 */
 	private retrieveData(country:string):void{
-		this.parksService.getParksInformation(country).subscribe((parks:Park[]) => {
-			this.parks = parks;
-		});
+		this.parks = this.parksService.getParksInformation(country);
 
 		this.parksService.getHeader(country).subscribe((header:{img:string, title:string}) => {
 			this.header = header;

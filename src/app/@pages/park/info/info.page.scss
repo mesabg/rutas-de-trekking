@@ -1,3 +1,13 @@
 app-park-info-page{
-    
+    ion-content{
+        div.scroll-content{
+            padding-top: 3rem!important;
+            padding-left: 3.5rem!important;
+            padding-right: 3.5rem!important;
+
+            p:first-child{
+                margin-top: 0px;
+            }
+        }
+    }
 }

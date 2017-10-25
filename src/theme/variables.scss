@@ -35,7 +35,7 @@ $app-direction: ltr;
 
 $colors: (
   primary:    #2196f3,
-  secondary:  #32db64,
+  secondary:  #44db5e,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
@@ -94,52 +94,9 @@ $colors: (
 	font-family: 'Source Sans Pro'
 }
 
-
-app-parks-page{
-  ion-header{
-      ion-navbar{
-          position: relative;
-          min-height: 30px;
-          max-height: 200px;
-          padding-left: 0px !important;
-          padding-right: 0px !important;
-          padding-top: 0px !important;
-          padding-bottom: 6px !important;
-          
-          & > button > span > span { display: none !important; }
-
-          & > button {
-              position: absolute;
-          }
-
-          & > div.toolbar-content {
-
-              & > ion-title{
-                  position: absolute;
-                  z-index: 2;
-                  top: 0;
-                  bottom: 0;
-                  padding: 0 !important;
-                  padding-left: 45px !important;
-                  padding-right: 45px !important;
-  
-                  & > div{
-                      font-weight: bold;
-                      text-align: center;
-                      text-transform: uppercase;
-                      text-overflow: initial !important;
-                      white-space: initial !important;
-                      font-size: 2.5rem !important;
-                      padding: 0;
-                  }
-              }
-          }
-      }
-  }
-
-  ion-content{
-      .fixed-content, .scroll-content{
-          margin-top: 160px;
-      }
-  }
+//-- Global styles
+p{
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: justify;
 }

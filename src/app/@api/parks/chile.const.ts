@@ -1,7 +1,7 @@
 /**
  * Local dependencies
  */
-import { Park } from '../../../#interfaces';
+import { Park } from '../../#interfaces';
 
 export const HEADER:{img:string, title:string} = {
     img: 'assets/images/park.jpg',

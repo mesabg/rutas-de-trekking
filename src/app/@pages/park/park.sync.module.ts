@@ -8,6 +8,11 @@ import { AgmCoreModule } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation';
 
 /**
+ * Local dependencies (modules)
+ */
+import { ApiModule } from '../../@api';
+
+/**
  * Local dependencies (Tabs)
  */
 import { ParkApnPage } from './apn';
@@ -25,7 +30,8 @@ import { ParkSearchPage } from './search';
 		IonicPageModule,
 		AgmCoreModule.forRoot({
 			apiKey: 'AIzaSyCHbQP3rbxe8JLnQi0qsSRBAdcAw5_uUYg'
-		})
+		}),
+		ApiModule
 	],
 	declarations:[
         ParkApnPage,

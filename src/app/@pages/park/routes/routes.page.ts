@@ -1,13 +1,16 @@
 /**
  * Global dependencies
  */
-import { Component, OnInit } from '@angular/core';
+import { 
+	Component, 
+	OnInit } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 /**
- * Local dependencies
+ * Local imports
  */
+import { ParksService } from '../../../@api';
 import { Park } from '../../../#interfaces';
 
 
@@ -16,18 +19,25 @@ import { Park } from '../../../#interfaces';
 	templateUrl: './routes.page.html'
 })
 export class ParkRoutesPage implements OnInit {
-	private park:Park;
 	private lat:number;
 	private lng:number;
+
+	public title:string;
+	public time:string;
+	public distance:number;
+	public velocity:number;
+
 	constructor(
 		public navParams: NavParams,
-		private geolocation: Geolocation) { }
+		private geolocation: Geolocation,
+		private api:ParksService) { }
 
 	/**
 	 * Events
 	 */
 	ngOnInit() {
-		
+		this.geolocate();
+		this.retrieve();
 	}
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
@@ -39,7 +49,6 @@ export class ParkRoutesPage implements OnInit {
 	private geolocate():void{
 		//-- Get first position
 		this.geolocation.getCurrentPosition().then((resp) => {
-			console.log('Location fetched', location);
 			this.lat = resp.coords.latitude;
 			this.lng = resp.coords.longitude;
 		}).catch((error) => {
@@ -48,8 +57,20 @@ export class ParkRoutesPage implements OnInit {
 
 		//-- Watch location changes
 		let watch = this.geolocation.watchPosition();
-		watch.subscribe((data) => {
-			console.log('Location changed', data);
+		watch.subscribe((resp) => {
+			this.lat = resp.coords.latitude;
+			this.lng = resp.coords.longitude;
+
+			this.time = "1 h 45 min";
+			this.distance = 4;
+			this.velocity = 350;
+		});
+	}
+
+	private retrieve():void{
+		this.api.getActualPark(this.navParams.data['country'], this.navParams.data['park-slug'])
+		.subscribe((park:Park) => {
+			this.title = park.name;
 		});
 	}
 }

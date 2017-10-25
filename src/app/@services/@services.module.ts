@@ -7,15 +7,13 @@ import { CommonModule } from '@angular/common';
 /**
  * Services dependencies
  */
-import { ParksService } from './data';
 
 
 @NgModule({
 	imports: [
 		CommonModule
 	],
-	providers: [
-		ParksService
-	]
+	providers: [],
+	exports:[]
 })
 export class ServicesModule { }
