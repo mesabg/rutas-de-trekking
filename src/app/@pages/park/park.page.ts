@@ -63,4 +63,8 @@ export class ParkPage implements OnInit, AfterViewInit {
 			console.log(park);
 		});
 	}
+
+	public dispose():void{
+		console.log("This is a message");
+	}
 }

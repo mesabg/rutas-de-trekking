@@ -66,7 +66,7 @@ export class HomePage implements OnInit, AfterViewInit {
 	 */
 	private startSlickJS():void{
 		this.$paises = new SlickJS($(this.paises.nativeElement), SETTINGS);
-		this.$options = new SlickJS($(this.options.nativeElement), SETTINGS_ICONS);
+		//this.$options = new SlickJS($(this.options.nativeElement), SETTINGS_ICONS);
 	}
 
 	private retrieve():void{

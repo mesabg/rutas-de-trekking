@@ -1,8 +1,8 @@
 /**
  * Global dependencies
  */
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, OnInit, ViewEncapsulation,ViewChild } from '@angular/core';
+import { Platform, NavController, ViewController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -14,6 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 })
 export class LayoutComponent implements OnInit {
 	rootPage:string = 'app-home-page';
+	@ViewChild('navigator') public nav:NavController;
     constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
 		platform.ready().then(() => {
 			// Okay, so the platform is ready and our plugins are available.
@@ -24,4 +25,14 @@ export class LayoutComponent implements OnInit {
 	}
 	
 	ngOnInit(){}
+
+	//-- General functions
+	displayPage(name:string){
+		let previousPages:ViewController[] = this.nav.getViews();
+		let canMove:Boolean = true;
+		previousPages.forEach((page) => {
+			canMove = canMove && page.id != name;
+		});
+		if (canMove) this.nav.push(name);
+	}
 }

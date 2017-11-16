@@ -79,4 +79,26 @@ app-park-page{
             margin-top: 0px;
         }
     }
+
+    ion-header{
+        top: 118px !important;
+        width: 22px !important;
+    }
+}
+
+
+ion-header[not-display]{
+    & > ion-navbar{
+        & > div.toolbar-background {
+            background-color: rgba(0,0,0,0) !important;
+        }
+
+        & > button{
+            & > span {
+                & > span{
+                    display: none;
+                }
+            }
+        }
+    }
 }

@@ -1,11 +1,50 @@
-<ion-header>
+<ion-header header-config>
 	<ion-navbar color="primary">
 		<ion-title>
-			Configuration
+			Configuración
 		</ion-title>
 	</ion-navbar>
 </ion-header>
       
-<ion-content padding>
-
+<ion-content class="settingsPage" padding>
+	<ion-list radio-group [(ngModel)]="preferences[PREF_LANGUAGE]" (ionChange)='changePreferenceGroup($event, PREF_LANGUAGE)'>
+		<ion-list-header>
+			Idioma
+		</ion-list-header>
+	
+		<ion-item>
+			<ion-label>Español</ion-label>
+			<ion-radio value="es"></ion-radio>
+		</ion-item>
+	
+		<ion-item>
+			<ion-label>Inglés</ion-label>
+			<ion-radio value="en"></ion-radio>
+		</ion-item>
+	</ion-list>
+	<ion-list>
+		<ion-item>
+			<ion-label>Idioma</ion-label>
+			<ion-radio value="friends" checked></ion-radio>
+			<ion-radio value="other" checked></ion-radio>
+		</ion-item>
+		<ion-item>
+			<ion-label>Make me discoverable by others</ion-label>
+			<ion-toggle secondary
+				[ngModel]='preferences[PREF_DISCOVERABLE]'
+				(ionChange)='changePreference($event, PREF_DISCOVERABLE)'></ion-toggle>
+		</ion-item>
+		<ion-item>
+			<ion-label>Notifications for Messages</ion-label>
+			<ion-toggle secondary
+				[ngModel]='preferences[PREF_NOTIFY_MESSAGES]'
+				(ionChange)='changePreference($event, PREF_NOTIFY_MESSAGES)'></ion-toggle>
+		</ion-item>
+		<ion-item>
+			<ion-label>Notifications for Invites</ion-label>
+			<ion-toggle secondary
+				[ngModel]='preferences[PREF_NOTIFY_INVITES]'
+				(ionChange)='changePreference($event, PREF_NOTIFY_INVITES)'></ion-toggle>
+		</ion-item>
+	</ion-list>
 </ion-content>

@@ -1,1 +1,9 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<!-- Options header -->
+<div options-fixed>
+    <div inner-fixed>        
+        <ion-icon name="information" (click)="displayPage('app-about-us-page')"></ion-icon>
+        <ion-icon name="settings" (click)="displayPage('app-configuration-page')"></ion-icon>
+    </div>    
+</div>
+
+<ion-nav #navigator [root]="rootPage"></ion-nav>
