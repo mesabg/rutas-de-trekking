@@ -22,29 +22,54 @@
 			<ion-radio value="en"></ion-radio>
 		</ion-item>
 	</ion-list>
+
+	<ion-list radio-group [(ngModel)]="preferences[PREF_DISTANCE]" (ionChange)='changePreferenceGroup($event, PREF_DISTANCE)'>
+		<ion-list-header>
+			Distancia
+		</ion-list-header>
+	
+		<ion-item>
+			<ion-label>Kilometros</ion-label>
+			<ion-radio value="km"></ion-radio>
+		</ion-item>
+	
+		<ion-item>
+			<ion-label>Millas</ion-label>
+			<ion-radio value="ml"></ion-radio>
+		</ion-item>
+	</ion-list>
+
+	<ion-list radio-group [(ngModel)]="preferences[PREF_TEMPERATURE]" (ionChange)='changePreferenceGroup($event, PREF_TEMPERATURE)'>
+		<ion-list-header>
+			Temperatura
+		</ion-list-header>
+	
+		<ion-item>
+			<ion-label>°Centígrados</ion-label>
+			<ion-radio value="c"></ion-radio>
+		</ion-item>
+	
+		<ion-item>
+			<ion-label>°Farenheit</ion-label>
+			<ion-radio value="f"></ion-radio>
+		</ion-item>
+	</ion-list>
+
 	<ion-list>
+		<ion-list-header>
+			Generales
+		</ion-list-header>
 		<ion-item>
-			<ion-label>Idioma</ion-label>
-			<ion-radio value="friends" checked></ion-radio>
-			<ion-radio value="other" checked></ion-radio>
+			<ion-label>Sonido</ion-label>
+			<ion-toggle secondary
+				[ngModel]='preferences[PREF_SOUND]'
+				(ionChange)='changePreference($event, PREF_SOUND)'></ion-toggle>
 		</ion-item>
 		<ion-item>
-			<ion-label>Make me discoverable by others</ion-label>
+			<ion-label>Notificaciones</ion-label>
 			<ion-toggle secondary
-				[ngModel]='preferences[PREF_DISCOVERABLE]'
-				(ionChange)='changePreference($event, PREF_DISCOVERABLE)'></ion-toggle>
-		</ion-item>
-		<ion-item>
-			<ion-label>Notifications for Messages</ion-label>
-			<ion-toggle secondary
-				[ngModel]='preferences[PREF_NOTIFY_MESSAGES]'
-				(ionChange)='changePreference($event, PREF_NOTIFY_MESSAGES)'></ion-toggle>
-		</ion-item>
-		<ion-item>
-			<ion-label>Notifications for Invites</ion-label>
-			<ion-toggle secondary
-				[ngModel]='preferences[PREF_NOTIFY_INVITES]'
-				(ionChange)='changePreference($event, PREF_NOTIFY_INVITES)'></ion-toggle>
+				[ngModel]='preferences[PREF_NOTIFICATION]'
+				(ionChange)='changePreference($event, PREF_NOTIFICATION)'></ion-toggle>
 		</ion-item>
 	</ion-list>
 </ion-content>

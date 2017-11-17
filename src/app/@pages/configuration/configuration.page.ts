@@ -57,12 +57,21 @@ export class ConfigurationPage implements OnInit {
 	}
 
 	changePreferenceGroup(event, key){
-		console.log(event);
+		this.preferencesService.setPreference(key, event);
 	}
 
 	//-- Events
 	ngOnInit() {
-		console.log(this.preferencesService);
+		this.preferences[PreferencesService.PREF_DISTANCE]
+			= this.preferencesService.getPreference(PreferencesService.PREF_DISTANCE);
+		this.preferences[PreferencesService.PREF_TEMPERATURE]
+			= this.preferencesService.getPreference(PreferencesService.PREF_TEMPERATURE);
+		this.preferences[PreferencesService.PREF_LANGUAGE]
+			= this.preferencesService.getPreference(PreferencesService.PREF_LANGUAGE);
+		this.preferences[PreferencesService.PREF_NOTIFICATION]
+			= this.preferencesService.getPreference(PreferencesService.PREF_NOTIFICATION);
+		this.preferences[PreferencesService.PREF_SOUND]
+			= this.preferencesService.getPreference(PreferencesService.PREF_SOUND);
 	}
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
