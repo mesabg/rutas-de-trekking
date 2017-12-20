@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 /**
  * Local dependencies
  */
-import { ParksService } from '../../@api';
-import { Park } from '../../#interfaces';
+import { ParksApi, CountriesApi } from '../../@api';
+import { Park, Country } from '../../#interfaces';
 
 
 @IonicPage({
@@ -33,12 +33,16 @@ export class ParksPage implements OnInit {
 	 * Variables
 	 */
 	public parks:Observable<Park[]>;
-	public header:{img:string, title:string};
+	public header:{img:string, title:string} = {
+		img: '',
+		title: ''
+	};
 
 	constructor(
 		public navCtrl:NavController, 
 		public navParams:NavParams,
-		public parksService:ParksService) {
+		public parksApi:ParksApi,
+		public countriesApi:CountriesApi) {
 		this.retrieveData(this.navParams.get('country'));
 	}
 
@@ -52,11 +56,12 @@ export class ParksPage implements OnInit {
 	/**
 	 * Actions
 	 */
-	private retrieveData(country:string):void{
-		this.parks = this.parksService.getParksInformation(country);
-
-		this.parksService.getHeader(country).subscribe((header:{img:string, title:string}) => {
-			this.header = header;
-		});
+	private async retrieveData(countrySlug:string):Promise<any>{
+		//this.parks = this.parksApi.getParks(countrySlug);
+		let country:Country = await this.countriesApi.getCountry(countrySlug).toPromise();
+		this.header = {
+			img: country.img,
+			title: country.titulo
+		};
 	}
 }

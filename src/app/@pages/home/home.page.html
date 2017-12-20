@@ -13,10 +13,10 @@
 
 	<div class="pais" #paises>
 		<img 
-			*ngFor="let country of countries | async"
-			[attr.src]="country.image" 
-			[attr.alt]="country.name"
-			(click)="navCtrl.push('app-parks-page', {'country': country.slug })">
+			*ngFor="let parque of parques"
+			[attr.src]="parque.logo" 
+			[attr.alt]="parque.nombre"
+			(click)="navCtrl.push('app-parks-page', {'country': parque.id })">
 	</div>
 
 	<!--<ul class="options" #options>

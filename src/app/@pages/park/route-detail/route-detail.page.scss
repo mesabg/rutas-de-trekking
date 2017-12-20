@@ -1,0 +1,90 @@
+app-park-route-detail-controller-page{
+    agm-map {
+        width: 100vw !important;
+        height: 68vh !important;
+    }
+
+    div.scroll-content{
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
+    .bottom-grid{
+        padding: 0px !important;
+        height: 10vh !important;
+        overflow: hidden;
+        width: 100vw;
+        margin-left: -35px;
+
+        ion-row{
+            height: 10vh !important;
+            & > ion-col{
+                background-color: map-get($colors, secondary);
+                color: white;
+            }
+
+            & > ion-col:first-child{
+                background-color: white;
+                color: black;
+                padding: 0px;
+            }
+
+            .main-content{
+                ion-row{
+                    ion-col{
+                        background-color: white;
+                        color: black;
+                        padding: 0px;
+                    }
+                }
+
+
+                .box-01{
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                }
+
+                [bold]{
+                    font-weight: bold;
+                }
+
+            }
+
+            [vertical]{
+                display: table;
+                width: 100%;
+                height: 100%;
+                position: relative;
+
+                span {
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                }
+            }
+
+            [icon-vertical]{
+                font-size: 60px;
+            }
+
+            [icon-vertical-mid]{
+                font-size: 50px !important;
+            }
+        }
+    }
+
+
+
+    div.scroll-content{
+        padding-top: 3rem !important;
+        padding-left: 3.5rem !important;
+        padding-right: 3.5rem !important;
+    }
+
+
+    div.agm-map-container-inner.sebm-google-map-container-inner{
+        left: -35px;
+    }
+}

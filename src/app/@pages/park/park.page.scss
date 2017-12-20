@@ -5,6 +5,8 @@ app-park-page{
         top: 16vh;
         height: 6vh;
         background-color: map-get($colors, primary) !important;
+        padding-left: 10%;
+        padding-right: 10%;
 
         & > a:first-child:before{
             position: absolute;
@@ -81,8 +83,25 @@ app-park-page{
     }
 
     ion-header{
-        top: 118px !important;
-        width: 22px !important;
+        height: 6vh !important;
+        top: 16vh !important;
+        width: 16vw !important;
+        ion-navbar{
+            height: 6vh !important;
+            min-height: 0px !important;
+            .toolbar-background{
+                height: 6vh !important;
+            }
+        }
+    }
+
+
+    .header-ios .toolbar-background-ios, 
+    .footer-ios .toolbar-background-ios,
+    .toolbar-background,
+    .toolbar-background-md{
+        border-style: none !important;
+        border-color: rgba(1, 2, 1, 0.0) !important;
     }
 }
 
@@ -101,4 +120,9 @@ ion-header[not-display]{
             }
         }
     }
+}
+
+
+#tab-t0-5{
+    display:none;
 }

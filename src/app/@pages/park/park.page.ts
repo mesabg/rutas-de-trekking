@@ -3,6 +3,7 @@
  */
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs';
 
 /**
  * Pages Dependencies
@@ -12,12 +13,13 @@ import { ParkInfoPage } from './info';
 import { ParkLodgmentPage } from './lodgment';
 import { ParkRoutesPage } from './routes';
 import { ParkSearchPage } from './search';
+import { RouteDetailPage } from './route-detail';
 
 /**
  * Local dependencies
  */
 import { Park } from '../../#interfaces';
-import { ParksService } from '../../@api';
+import { ParksApi } from '../../@api';
 
 @IonicPage({
 	name: 'app-park-page',
@@ -34,6 +36,7 @@ export class ParkPage implements OnInit, AfterViewInit {
 	public LodgmentPageRoot:any = ParkLodgmentPage;
 	public RoutesPageRoot:any = ParkRoutesPage;
 	public SearchPageRoot:any = ParkSearchPage;
+	public RouteDetailRoot:any = RouteDetailPage;
 
 	//-- Page params
 	public park:Park;
@@ -41,14 +44,14 @@ export class ParkPage implements OnInit, AfterViewInit {
 	constructor(
 		public navCtrl:NavController, 
 		public navParams:NavParams,
-		private api:ParksService) {
+		private api:ParksApi) {
 	}
 
 	
 	/**
 	 * Events
 	 */
-	ngOnInit() { this.retrieve(); }
+	async ngOnInit() { await this.retrieve(); }
 	ngAfterViewInit() { }
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
@@ -56,12 +59,8 @@ export class ParkPage implements OnInit, AfterViewInit {
 	/**
 	 * Actions
 	 */
-	private retrieve():void{
-		this.api.getActualPark(this.navParams.get('country'), this.navParams.get('park-slug'))
-		.subscribe((park:Park) => {
-			this.park = park;
-			console.log(park);
-		});
+	private async retrieve(){
+		this.park = await this.api.getPark(this.navParams.get('country'), this.navParams.get('park-slug')).toPromise();
 	}
 
 	public dispose():void{

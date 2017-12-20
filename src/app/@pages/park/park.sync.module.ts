@@ -5,12 +5,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicPageModule } from 'ionic-angular';
 import { AgmCoreModule } from '@agm/core';
+import { PolylineManager, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Local dependencies (modules)
  */
 import { ApiModule } from '../../@api';
+import { ServicesModule } from '../../@services';
 
 /**
  * Local dependencies (Tabs)
@@ -20,6 +22,7 @@ import { ParkInfoPage } from './info';
 import { ParkLodgmentPage } from './lodgment';
 import { ParkRoutesPage } from './routes';
 import { ParkSearchPage } from './search';
+import { RouteDetailPage } from './route-detail';
 
 /**
  * This module contains all the tabs which are gonna be used into the park page
@@ -31,20 +34,23 @@ import { ParkSearchPage } from './search';
 		AgmCoreModule.forRoot({
 			apiKey: 'AIzaSyCHbQP3rbxe8JLnQi0qsSRBAdcAw5_uUYg'
 		}),
-		ApiModule
+		ApiModule,
+		ServicesModule
 	],
 	declarations:[
         ParkApnPage,
         ParkInfoPage,
         ParkLodgmentPage,
-        ParkRoutesPage,
+		ParkRoutesPage,
+		RouteDetailPage,
         ParkSearchPage
 	],
 	entryComponents:[
         ParkApnPage,
         ParkInfoPage,
         ParkLodgmentPage,
-        ParkRoutesPage,
+		ParkRoutesPage,
+		RouteDetailPage,
         ParkSearchPage
 	],
 	exports:[
@@ -52,10 +58,14 @@ import { ParkSearchPage } from './search';
 		ParkInfoPage,
 		ParkLodgmentPage,
 		ParkRoutesPage,
+		RouteDetailPage,
 		ParkSearchPage
 	],
 	providers:[
-		Geolocation
+		Geolocation,
+		PolylineManager,
+		MarkerManager,
+		GoogleMapsAPIWrapper
 	]
 })
 export class ParkSyncModule { }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StorageService } from './storage.service';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class PreferencesService {
@@ -12,25 +12,22 @@ export class PreferencesService {
   static get PREF_NOTIFICATION() { return 'pref_notification';}
   static get PREF_SOUND() { return 'pref_sound';}
 
-  static get parameters() {
-     return [[StorageService]];
-  }
 
-  constructor(private _storageService:StorageService) {
+  constructor(private _storage:Storage) {
     this._preferences = {};
   }
 
   initializePreferences(){
     console.log('initializePreferences');
-    this._storageService.storage.get(PreferencesService.PREF_INITIALIZED).then((result) => {
+    this._storage.get(PreferencesService.PREF_INITIALIZED).then((result) => {
       if(result == null || result == false){
         console.log('initializePreferences with default values');
-        this._storageService.storage.set(PreferencesService.PREF_INITIALIZED, true);
-        this._storageService.storage.set(PreferencesService.PREF_DISTANCE, 'km');
-        this._storageService.storage.set(PreferencesService.PREF_TEMPERATURE, 'c');
-        this._storageService.storage.set(PreferencesService.PREF_LANGUAGE, 'es');
-        this._storageService.storage.set(PreferencesService.PREF_NOTIFICATION, true);
-        this._storageService.storage.set(PreferencesService.PREF_SOUND, true);
+        this._storage.set(PreferencesService.PREF_INITIALIZED, true);
+        this._storage.set(PreferencesService.PREF_DISTANCE, 'km');
+        this._storage.set(PreferencesService.PREF_TEMPERATURE, 'c');
+        this._storage.set(PreferencesService.PREF_LANGUAGE, 'es');
+        this._storage.set(PreferencesService.PREF_NOTIFICATION, true);
+        this._storage.set(PreferencesService.PREF_SOUND, true);
 
         //initialize in memory preferences
         this._preferences[PreferencesService.PREF_DISTANCE] = 'km';
@@ -69,16 +66,16 @@ export class PreferencesService {
 
   setPreference(key, value){
     this._preferences[key] = value;//update pref in memory
-    this._storageService.storage.set(key, value);//update pref in db
+    this._storage.set(key, value);//update pref in db
   }
 
   _getAllPreferences(prefs){
     return Promise.all(prefs.map((key) => {
-      return this._storageService.storage.get(key);
+      return this._storage.get(key);
     }));
   }
 
   _getPreference(key){
-    return this._storageService.storage.get(key);
+    return this._storage.get(key);
   }
 }

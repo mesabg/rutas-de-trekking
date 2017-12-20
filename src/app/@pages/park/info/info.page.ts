@@ -10,7 +10,7 @@ import { NavParams } from 'ionic-angular';
 /**
  * Local dependencies
  */
-import { ParksService } from '../../../@api';
+import { ParksApi } from '../../../@api';
 import { Park } from '../../../#interfaces';
 
 
@@ -22,13 +22,13 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 	public description:string;
 	constructor(
 		public navParams: NavParams,
-		private api:ParksService) {}
+		private api:ParksApi) {}
 
 	/**
 	 * Events
 	 */
-	ngOnInit() {
-		this.retrieve();
+	async ngOnInit() {
+		await this.retrieve();
 	}
 	ngAfterViewInit() { }
 	ionViewDidLoad(){ }
@@ -38,10 +38,7 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 	/**
 	 * Actions
 	 */
-	private retrieve():void{
-		this.api.getActualPark(this.navParams.data['country'], this.navParams.data['park-slug'])
-		.subscribe((park:Park) => {
-			this.description = park.description;
-		});
+	private async retrieve(){
+		this.description = (await this.api.getPark(this.navParams.data['country'], this.navParams.data['park-slug']).toPromise()).descripcion;
 	}
 }

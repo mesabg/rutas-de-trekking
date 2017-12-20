@@ -1,0 +1,56 @@
+<!--<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Route Detail
+        </ion-title>
+    </ion-navbar>
+</ion-header>-->
+        
+<ion-content padding>
+    <p>{{ description }}</p>
+    <br>
+    <agm-map [latitude]="center.lat" [longitude]="center.lng">
+        <agm-marker *ngFor="let mark of markers" [latitude]="mark.lat" [longitude]="mark.lng"></agm-marker>
+        <agm-polyline>
+            <agm-polyline-point *ngFor="let point of puntos" [latitude]="point.lat" [longitude]="point.lng"></agm-polyline-point>
+        </agm-polyline>
+    </agm-map>
+    <ion-grid class="bottom-grid">
+        <ion-row>
+            <ion-col col-7 class="main-content">
+                <ion-row justify-content-center align-items-center class="box-01">
+                    <ion-col col-12>
+                        <span bold>{{title}}</span>
+                    </ion-col>
+
+                    <ion-col>
+                        <span>{{time}}</span>
+                    </ion-col>
+                    <ion-col>
+                        * &nbsp;
+                        <span>{{distance / 1000}} km</span>
+                    </ion-col>
+                    <ion-col align-items-center>
+                        * &nbsp;
+                        <span>{{velocity}} m</span>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+            <ion-col>
+                <div vertical>
+                    <span icon-vertical><ion-icon name="information"></ion-icon></span>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div vertical>
+                    <span icon-vertical-mid><ion-icon style="font-size: 40px;" name="ios-thermometer"></ion-icon></span>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div vertical>
+                    <span bold (click)="empezar()">EMPEZAR</span>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -4,15 +4,16 @@
 import { 
 	Component, 
 	OnInit } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Local imports
  */
-import { ParksService } from '../../../@api';
-import { Park } from '../../../#interfaces';
-
+import { ParksApi, RoutesApi } from '../../../@api';
+import { StorageService } from '../../../@services';
+import { Park, Route } from '../../../#interfaces';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-park-routes-page',
@@ -26,18 +27,22 @@ export class ParkRoutesPage implements OnInit {
 	public time:string;
 	public distance:number;
 	public velocity:number;
+	public routes:Observable<Route[]>;
 
 	constructor(
 		public navParams: NavParams,
+		public navCtrl: NavController,
 		private geolocation: Geolocation,
-		private api:ParksService) { }
+		private parksApi:ParksApi,
+		private routesApi:RoutesApi,
+		private storage:StorageService) { }
 
 	/**
 	 * Events
 	 */
-	ngOnInit() {
+	async ngOnInit() {
+		await this.retrieve();
 		this.geolocate();
-		this.retrieve();
 	}
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
@@ -67,10 +72,13 @@ export class ParkRoutesPage implements OnInit {
 		});
 	}
 
-	private retrieve():void{
-		this.api.getActualPark(this.navParams.data['country'], this.navParams.data['park-slug'])
-		.subscribe((park:Park) => {
-			this.title = park.name;
-		});
+	private async retrieve(){
+		this.title = (await this.parksApi.getPark(this.navParams.data['country'], this.navParams.data['park-slug']).toPromise()).nombre;
+		this.routes = this.routesApi.getRoutes(this.navParams.data['country'], this.navParams.data['park-slug']);
+	}
+
+	private async navigate(routeSlug:string){
+		await this.storage.create('actual-route-slug', routeSlug);
+		await this.navCtrl.parent.select(5);
 	}
 }

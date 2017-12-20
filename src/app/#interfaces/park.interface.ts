@@ -1,13 +1,14 @@
+import { Route } from './route.interface';
+
 /**
  * Park General Interface
  */
 export interface Park {
     slug:string;
-    name:string;
-    description:string;
-    location:string;
+    nombre:string;
+    locacion:string;
     img:string;
-    routes:any[];
-    sleep:any[];
+    descripcion:string;
+    rutas:Route[];
     lock?:boolean;
 };

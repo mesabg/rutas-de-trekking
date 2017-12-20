@@ -24,3 +24,12 @@ $ ionic cordova run ios
 
 Substitute ios for android if not on a Mac.
 
+
+
+## API
+(GET) /paises       <>    Retorna todos los paises
+(GET) /pais/{slug}  <>   Retorna un país
+(GET) /parques/{pais-slug}  <>  Todos los parques de un pais
+(GET) /parque/{pais-slug}/{parque-slug}     <>   Un parque
+(GET) /rutas/{pais-slug}/{parque-slug}      <> Todas las rutas de un parque
+(GET) /ruta/{pais-slug}/{parque-slug}/{ruta-slug}   <> Una ruta de un parque

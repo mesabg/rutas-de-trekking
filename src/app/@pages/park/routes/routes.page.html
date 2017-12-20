@@ -7,7 +7,12 @@
 </ion-header>-->
 		
 <ion-content padding>
-	<agm-map [latitude]="lat" [longitude]="lng">
+	<ion-list>
+		<ion-item *ngFor="let route of routes | async" (click)="navigate(route.slug)">
+			<h3 custom-list>{{route.nombre}}</h3>
+		</ion-item>
+	</ion-list>
+	<!--<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
 		<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 	</agm-map>
 
@@ -40,5 +45,5 @@
 				EMPEZAR
 			</ion-col>
 		</ion-row>
-	</ion-grid>
+	</ion-grid>-->
 </ion-content>

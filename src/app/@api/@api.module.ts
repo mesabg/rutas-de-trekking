@@ -8,9 +8,11 @@ import { IonicStorageModule } from '@ionic/storage';
 /**
  * Local imports
  */
-import { ParksService } from './parks';
-import { CountriesService } from './countries';
-import { PersistsService } from './persist';
+import { ServicesModule } from '../@services';
+import { CountriesApi } from './countries.api';
+import { ParksApi } from './parks.api';
+import { RoutesApi } from './routes.api';
+import { ApiModule as MsApiModule } from '../../@ms/api';
 
 
 /**
@@ -19,15 +21,17 @@ import { PersistsService } from './persist';
 @NgModule({
 	imports: [
 		CommonModule,
+		ServicesModule,
+		MsApiModule,
 		IonicStorageModule.forRoot()
 	],
 	exports: [
 		IonicStorageModule
 	],
 	providers:[
-		ParksService,
-		CountriesService,
-		PersistsService
+		CountriesApi,
+		ParksApi,
+		RoutesApi
 	]
 })
 export class ApiModule { }

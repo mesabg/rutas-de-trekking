@@ -10,6 +10,7 @@ import { IonicStorageModule } from '@ionic/storage';
  */
 import { StorageService } from './storage.service';
 import { PreferencesService } from './preferences.service';
+import { LoadDataService } from './load-data.service';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { PreferencesService } from './preferences.service';
 	],
 	providers: [
 		StorageService,
+		LoadDataService,
 		PreferencesService
 	],
 	exports:[]

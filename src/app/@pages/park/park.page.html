@@ -5,8 +5,8 @@
 
 <div class="header-container">
     <div class="inner">
-        <img [attr.src]="park.img" [attr.alt]="park.name">
-        <span> {{ park?.name }} </span>
+        <img [attr.src]="park?.img" [attr.alt]="park?.nombre">
+        <span> {{ park?.nombre }} </span>
     </div>
 </div>
 
@@ -20,16 +20,24 @@
         'park-slug': navParams.get('park-slug'),
         'country': navParams.get('country')
     }"></ion-tab>
-    <!--<ion-tab [root]="SearchPageRoot" tabTitle="Search" tabIcon="search"></ion-tab>-->
-    <ion-tab [root]="RoutesPageRoot" tabTitle="Routes" tabIcon="ios-speedometer" [rootParams]="{
+    <ion-tab [root]="RoutesPageRoot" tabTitle="Routes" tabIcon="map" [rootParams]="{
         'park-slug': navParams.get('park-slug'),
         'country': navParams.get('country')
     }"></ion-tab>
-    <ion-tab [root]="LodgmentPageRoot" tabTitle="Lodgment" tabIcon="easel" [rootParams]="{
+    <ion-tab [root]="LodgmentPageRoot" tabTitle="Lodgment" tabIcon="ios-moon" [rootParams]="{
         'park-slug': navParams.get('park-slug'),
         'country': navParams.get('country')
     }"></ion-tab>
-    <ion-tab [root]="ApnPageRoot" tabTitle="APN" tabIcon="finger-print" [rootParams]="{
+    <ion-tab [root]="SearchPageRoot" tabTitle="Sunny" tabIcon="ios-sunny" [rootParams]="{
+        'park-slug': navParams.get('park-slug'),
+        'country': navParams.get('country')
+    }"></ion-tab>
+    <ion-tab [root]="ApnPageRoot" tabTitle="APN" tabIcon="ios-finger-print" [rootParams]="{
+        'park-slug': navParams.get('park-slug'),
+        'country': navParams.get('country')
+    }"></ion-tab>
+
+    <ion-tab [root]="RouteDetailRoot" tabTitle="RouteDetail" tabIcon="ios-finger-print" [rootParams]="{
         'park-slug': navParams.get('park-slug'),
         'country': navParams.get('country')
     }"></ion-tab>

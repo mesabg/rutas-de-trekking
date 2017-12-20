@@ -12,6 +12,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
  */
 import { Layout } from './layout';
 import { ParkSyncModule } from './@pages/park';
+import { ServicesModule, LoadDataService } from './@services';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ParkSyncModule } from './@pages/park';
 	imports: [
 		BrowserModule,
 		ParkSyncModule,
+		ServicesModule,
 		IonicModule.forRoot(Layout)
 	],
 	bootstrap: [IonicApp],
@@ -33,4 +35,10 @@ import { ParkSyncModule } from './@pages/park';
 		{provide: ErrorHandler, useClass: IonicErrorHandler}
 	]
 })
-export class AppModule {}
+export class AppModule {
+	constructor(private loadData:LoadDataService){
+		this.loadData.toStorage().then(data => {
+			console.log("Everything stored :: ", data);
+		});
+	}
+}
