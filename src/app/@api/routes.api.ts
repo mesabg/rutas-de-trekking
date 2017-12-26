@@ -24,8 +24,8 @@ export class RoutesApi {
                 paises.forEach(pais => {
                     if (pais.slug === countrySlug)
                         pais.parques.forEach(parque => {
-                            if (parque.slug === parkSlug) 
-                                routes = parque.rutas;
+                            //if (parque.slug === parkSlug) 
+                                //routes = parque.rutas;
                         });
                 });
                 observer.next(routes);
@@ -45,11 +45,11 @@ export class RoutesApi {
                 paises.forEach(pais => {
                     if (pais.slug === countrySlug)
                         pais.parques.forEach(parque => {
-                            if (parque.slug === parkSlug)
-                                parque.rutas.forEach(ruta => {
+                            //if (parque.slug === parkSlug)
+                                /*parque.rutas.forEach(ruta => {
                                     if (ruta.slug === routeSlug)
                                         route = ruta;
-                                });
+                                });*/
                         });
                 });
                 observer.next(route);

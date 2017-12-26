@@ -132,6 +132,6 @@ export class RouteDetailPage implements OnInit {
             let distanceR = Math.sqrt( Math.pow(final.x-inital.x, 2) + Math.pow(final.y-inital.y, 2) );
             self.distance = distanceR;
 
-        }, 10000);
+        }, 10000); 
     }
 }

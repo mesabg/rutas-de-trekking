@@ -8,13 +8,18 @@ import {
 	ElementRef,
 	ViewChild,
 	OnChanges,
-	EventEmitter } from '@angular/core';
+	EventEmitter,
+	ComponentFactory,
+	ComponentFactoryResolver,
+	ViewRef,
+	ViewContainerRef } from '@angular/core';
 
 import { 
 	IonicPage, 
 	NavController, 
 	NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
+import 'rxjs/add/operator/toPromise';
 
 /**
  * Plugins
@@ -28,6 +33,7 @@ import { SlickJS } from '../../../@ms/components';
 import { SETTINGS, SETTINGS_ICONS } from './home.page.slick-config';
 import { Country } from '../../#interfaces';
 import { CountriesApi, ParksApi } from '../../@api';
+import { AriaImageComponent, AriaImageItem, AriaImageExport } from '../../@components';
 
 
 @IonicPage({
@@ -44,6 +50,7 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 	 */
 	@ViewChild('paises') private paises:ElementRef;
 	@ViewChild('options') private options:ElementRef;
+	@ViewChild('render', {read:ViewContainerRef}) private viewRender:ViewContainerRef;
 	private $paises:SlickJS;
 	private $options:SlickJS;
 	public parques:Observable<{
@@ -58,40 +65,41 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 	constructor(
 		public navCtrl:NavController, 
 		public navParams:NavParams,
-		public api:ParksApi) {}
+		public api:ParksApi,
+		private resolver:ComponentFactoryResolver) {}
 
 	/**
 	 * Events
 	 */
-	ngOnInit() {
-		this.retrieve();
-	}
+	ngOnInit() { this.retrieve(); }
 	ngAfterViewInit() { 
 		this.startSlickJS();
 		this.viewInit = true;
 		this.afterViewInit.emit();
 	}
+
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
 
-	ngOnChanges() {
-		console.log("Some changes here");
-	}
+	ngOnChanges() { }
 
 	/**
 	 * Actions
 	 */
 	private startSlickJS():void{
 		this.$paises = new SlickJS($(this.paises.nativeElement), SETTINGS);
-		//this.$options = new SlickJS($(this.options.nativeElement), SETTINGS_ICONS);
 	}
 
-	private retrieve():void{
-		//this.countries = this.api.getCountries();
-		this.api.getParks().subscribe(response => {
-			let data = response.data;
-			console.log("Response is :: ", data);
-		});
+	private async retrieve():Promise<void>{
+		let response = await this.api.getParks().toPromise();
+
+		//-- Wait till´ initial view is rendered
+		if (!this.viewInit) 
+			this.afterViewInit.subscribe(() => {
+				//-- View is initiated, go to process
+				this.process(response);
+			});
+		else this.process(response);
 		/*this.api.getCountries().subscribe((countries:Country[]) => {
 			this.$paises = new SlickJS($(this.paises.nativeElement), SETTINGS);
 			countries.forEach((country) => {
@@ -102,5 +110,49 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 				});
 			});
 		});*/
+	}
+
+
+
+	//-- Process data
+	//-- After retrieve
+	//-- After initial view is rendered
+	private process(response:any):void {
+		if (response.state != "success") return;
+		let data = response.data;
+		data.forEach((parque) => {
+			this.render({
+				index: parque.id,
+				name: parque.nombre,
+				url: parque.logo
+			});
+		});
+	}
+
+
+	//-- Render a single image component
+	//-- Subscribe to every event (onClick, basically)
+	private render(image:AriaImageItem):void{
+		//-- Creating component
+		let factory = this.resolver.resolveComponentFactory(AriaImageComponent);
+		let reference = this.viewRender.createComponent(factory);
+
+		//-- Setting component params
+		(<AriaImageComponent>reference.instance).image = image;
+
+		//-- Suscribe to events
+		(<AriaImageComponent>reference.instance)
+            .onClick
+            .subscribe((response:AriaImageExport) => {
+				//-- Do the routing
+				this.navCtrl.push('app-park-page', {'park-id': response.data.index })
+			});
+			
+		(<AriaImageComponent>reference.instance)
+            .afterViewInit
+            .subscribe((data:AriaImageExport) => {
+				this.$paises.push(data.$target);
+            });
+		
 	}
 }

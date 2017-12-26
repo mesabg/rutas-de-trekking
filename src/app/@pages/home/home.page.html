@@ -11,12 +11,13 @@
 		<h2>Por favor seleccione el país dónde hacer trekking:</h2>
 	</div>
 
+	<div #render></div>
 	<div class="pais" #paises>
-		<img 
+		<!--<img 
 			*ngFor="let parque of parques"
 			[attr.src]="parque.logo" 
 			[attr.alt]="parque.nombre"
-			(click)="navCtrl.push('app-parks-page', {'country': parque.id })">
+			(click)="navCtrl.push('app-parks-page', {'country': parque.id })">-->
 	</div>
 
 	<!--<ul class="options" #options>

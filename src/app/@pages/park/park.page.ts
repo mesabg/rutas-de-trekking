@@ -23,7 +23,7 @@ import { ParksApi } from '../../@api';
 
 @IonicPage({
 	name: 'app-park-page',
-	segment: 'park/:country/:park-slug'
+	segment: 'park/:park-id'
 })
 @Component({
 	selector: 'app-park-page',
@@ -51,7 +51,7 @@ export class ParkPage implements OnInit, AfterViewInit {
 	/**
 	 * Events
 	 */
-	async ngOnInit() { await this.retrieve(); }
+	ngOnInit() { this.retrieve(); }
 	ngAfterViewInit() { }
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
@@ -60,7 +60,10 @@ export class ParkPage implements OnInit, AfterViewInit {
 	 * Actions
 	 */
 	private async retrieve(){
-		this.park = await this.api.getPark(this.navParams.get('country'), this.navParams.get('park-slug')).toPromise();
+		let response = await this.api.getPark(this.navParams.get('park-id'));
+		if (response.state != "success") return;
+		this.park = <Park> response.data[0];
+		console.log("Park is :: ", this.park);
 	}
 
 	public dispose():void{

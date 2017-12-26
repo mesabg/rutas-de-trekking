@@ -27,8 +27,8 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 	/**
 	 * Events
 	 */
-	async ngOnInit() {
-		await this.retrieve();
+	ngOnInit() {
+		this.retrieve();
 	}
 	ngAfterViewInit() { }
 	ionViewDidLoad(){ }
@@ -39,6 +39,10 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 	 * Actions
 	 */
 	private async retrieve(){
-		this.description = (await this.api.getPark(this.navParams.data['country'], this.navParams.data['park-slug']).toPromise()).descripcion;
+		console.log("Before retrieve");
+		let response = await this.api.getPark(this.navParams.data['park-id']);
+		//if (response.status != "success") return;
+		this.description = (<Park>response.data[0]).descripcion;
+		console.log("Descripcion del parque :: ", this.description);
 	}
 }

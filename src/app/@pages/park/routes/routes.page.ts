@@ -73,7 +73,7 @@ export class ParkRoutesPage implements OnInit {
 	}
 
 	private async retrieve(){
-		this.title = (await this.parksApi.getPark(this.navParams.data['country'], this.navParams.data['park-slug']).toPromise()).nombre;
+		//his.title = (await this.parksApi.getPark(this.navParams.data['country'], this.navParams.data['park-slug']).toPromise()).nombre;
 		this.routes = this.routesApi.getRoutes(this.navParams.data['country'], this.navParams.data['park-slug']);
 	}
 

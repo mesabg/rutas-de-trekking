@@ -4,11 +4,15 @@ import { Route } from './route.interface';
  * Park General Interface
  */
 export interface Park {
-    slug:string;
-    nombre:string;
-    locacion:string;
-    img:string;
+    ambient_id:number;
+    country_id:number;
+    created_at:Date;
     descripcion:string;
-    rutas:Route[];
-    lock?:boolean;
+    id:number;
+    img:string;
+    logo:string;
+    nombre:string;
+    province_id:number;
+    slug:string;
+    updated_at:Date;
 };
