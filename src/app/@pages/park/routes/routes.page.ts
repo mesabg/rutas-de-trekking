@@ -10,7 +10,7 @@ import { NavParams, NavController } from 'ionic-angular';
  * Local imports
  */
 import { RoutesApi } from '../../../@api';
-import { StorageService } from '../../../@services';
+import { Storage } from '@ionic/storage';
 import { Park, Route } from '../../../#interfaces';
 import { Observable } from 'rxjs';
 
@@ -25,7 +25,7 @@ export class ParkRoutesPage implements OnInit {
 		public navParams: NavParams,
 		public navCtrl: NavController,
 		private routesApi:RoutesApi,
-		private storage:StorageService) { }
+		private storage:Storage) { }
 
 	/**
 	 * Events
@@ -41,8 +41,8 @@ export class ParkRoutesPage implements OnInit {
 		console.log("Bunch of routes :: ", response);
 	}
 
-	private async navigate(routeSlug:string){
-		await this.storage.create('actual-route-slug', routeSlug);
+	public async navigate(routeSlug:string){
+		await this.storage.set('actual-route-slug', routeSlug);
 		await this.navCtrl.parent.select(5);
 	}
 }

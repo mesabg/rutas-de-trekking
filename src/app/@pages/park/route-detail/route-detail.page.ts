@@ -4,7 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
 import { RoutesApi } from '../../../@api';
-import { StorageService } from '../../../@services';
+import { Storage } from '@ionic/storage';
 import { Route } from '../../../#interfaces';
 import { Geolocation } from '@ionic-native/geolocation';
 import utmObj from 'utm-latlng';
@@ -36,7 +36,7 @@ export class RouteDetailPage implements OnInit {
         public navParams: NavParams,
         public navCtrl:NavController,
         private routesApi:RoutesApi,
-        private storage:StorageService,
+        private storage:Storage,
         private geo:Geolocation) {}
 
 	/**
@@ -69,7 +69,7 @@ export class RouteDetailPage implements OnInit {
     //-- General functions
     async retrieve(){
         //-- Get data
-        let actualRouteSlug = await this.storage.retrieve('actual-route-slug');
+        let actualRouteSlug = await this.storage.get('actual-route-slug');
         this.route = await this.routesApi.getRouteDetail(actualRouteSlug);
         console.log("Route retrieved :: ", this.route);
         

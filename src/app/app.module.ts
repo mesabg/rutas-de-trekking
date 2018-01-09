@@ -6,13 +6,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { IonicStorageModule } from '@ionic/storage';
 
 /**
  * Local dependencies
  */
 import { Layout } from './layout';
 import { ParkSyncModule } from './@pages/park';
-import { ServicesModule, LoadDataService } from './@services';
+import { ServicesModule } from './@services';
 
 
 @NgModule({
@@ -23,7 +24,11 @@ import { ServicesModule, LoadDataService } from './@services';
 		BrowserModule,
 		ParkSyncModule,
 		ServicesModule,
-		IonicModule.forRoot(Layout)
+		IonicModule.forRoot(Layout),
+		IonicStorageModule.forRoot({
+			name: '__trekking-db',
+			driverOrder: ['indexeddb', 'sqlite', 'websql']
+		})
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
@@ -35,10 +40,4 @@ import { ServicesModule, LoadDataService } from './@services';
 		{provide: ErrorHandler, useClass: IonicErrorHandler}
 	]
 })
-export class AppModule {
-	constructor(private loadData:LoadDataService){
-		this.loadData.toStorage().then(data => {
-			console.log("Everything stored :: ", data);
-		});
-	}
-}
+export class AppModule {}

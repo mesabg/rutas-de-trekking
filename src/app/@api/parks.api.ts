@@ -8,14 +8,12 @@ import 'rxjs/add/operator/toPromise';
 /**
  * Local dependencies
  */
-import { StorageService } from '../@services';
-import { Park, Country } from '../#interfaces';
 import { ApiService } from '../../@ms/api';
 
 
 @Injectable()
 export class ParksApi {
-	constructor(private storage:StorageService, private apiService:ApiService) { }
+	constructor(private apiService:ApiService) { }
 
     public getParks():Observable<any>{
         return this.apiService.get(`parques`)

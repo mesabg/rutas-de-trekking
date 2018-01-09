@@ -3,7 +3,6 @@
  */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicStorageModule } from '@ionic/storage';
 
 /**
  * Local imports
@@ -22,11 +21,9 @@ import { ApiModule as MsApiModule } from '../../@ms/api';
 	imports: [
 		CommonModule,
 		ServicesModule,
-		MsApiModule,
-		IonicStorageModule.forRoot()
+		MsApiModule
 	],
 	exports: [
-		IonicStorageModule
 	],
 	providers:[
 		CountriesApi,

@@ -2,15 +2,13 @@
  * Global dependencies
  */
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 
 
 /**
  * Local dependencies
  */
-import { StorageService } from '../@services';
-import { Park, Country, Route } from '../#interfaces';
+import { Route } from '../#interfaces';
 import { ApiService } from '../../@ms/api';
 
 

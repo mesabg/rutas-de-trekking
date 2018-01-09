@@ -1,5 +1,3 @@
-import { Route } from './route.interface';
-
 /**
  * Park General Interface
  */

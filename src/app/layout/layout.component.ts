@@ -3,6 +3,7 @@
  */
 import { Component, OnInit, ViewEncapsulation,ViewChild } from '@angular/core';
 import { Platform, NavController, ViewController } from 'ionic-angular';
+import { Storage } from '@ionic/storage'; 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -15,10 +16,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class LayoutComponent implements OnInit {
 	rootPage:string = 'app-home-page';
 	@ViewChild('navigator') public nav:NavController;
-    constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-		platform.ready().then(() => {
+    constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, storage:Storage) {
+		platform.ready().then(async () => {
 			// Okay, so the platform is ready and our plugins are available.
 			// Here you can do any higher level native things you might need.
+			console.log("Platform is ready");
+			let localForage:LocalForage = await storage.ready();
+			let keys = await localForage.keys();
+			console.log("Local forage is ready", localForage);
+			console.log("Local forage keys", keys);
 			statusBar.styleDefault();
 			splashScreen.hide();
 		});
@@ -28,6 +34,7 @@ export class LayoutComponent implements OnInit {
 
 	//-- General functions
 	displayPage(name:string){
+		console.log("Moving on :: ", name);
 		let previousPages:ViewController[] = this.nav.getViews();
 		let canMove:Boolean = true;
 		previousPages.forEach((page) => {

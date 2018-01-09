@@ -3,7 +3,10 @@ import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class PreferencesService {
-    private _preferences:any;
+
+  static get parameters() {
+    return [[Storage]];
+  }
 
   static get PREF_INITIALIZED() { return 'preferencesInitialized';}
   static get PREF_DISTANCE() { return 'pref_distance';}
@@ -13,69 +16,43 @@ export class PreferencesService {
   static get PREF_SOUND() { return 'pref_sound';}
 
 
-  constructor(private _storage:Storage) {
-    this._preferences = {};
-  }
+  constructor(private storage:Storage) {}
 
-  initializePreferences(){
-    console.log('initializePreferences');
-    this._storage.get(PreferencesService.PREF_INITIALIZED).then((result) => {
-      if(result == null || result == false){
-        console.log('initializePreferences with default values');
-        this._storage.set(PreferencesService.PREF_INITIALIZED, true);
-        this._storage.set(PreferencesService.PREF_DISTANCE, 'km');
-        this._storage.set(PreferencesService.PREF_TEMPERATURE, 'c');
-        this._storage.set(PreferencesService.PREF_LANGUAGE, 'es');
-        this._storage.set(PreferencesService.PREF_NOTIFICATION, true);
-        this._storage.set(PreferencesService.PREF_SOUND, true);
+  async initializePreferences(){
+    console.log('Initializing preferences');
 
-        //initialize in memory preferences
-        this._preferences[PreferencesService.PREF_DISTANCE] = 'km';
-        this._preferences[PreferencesService.PREF_TEMPERATURE] = 'c';
-        this._preferences[PreferencesService.PREF_LANGUAGE] = 'es';
-        this._preferences[PreferencesService.PREF_NOTIFICATION] = true;
-        this._preferences[PreferencesService.PREF_SOUND] = true;
-      }else{
-        console.log('preferences obtained from storage');
-        let prefs =
-          [
-            PreferencesService.PREF_DISTANCE,
-            PreferencesService.PREF_TEMPERATURE,
-            PreferencesService.PREF_LANGUAGE,
-            PreferencesService.PREF_NOTIFICATION,
-            PreferencesService.PREF_SOUND
-          ];
+    return new Promise((resolve, reject) => {
+      this.storage.get(PreferencesService.PREF_INITIALIZED).then(async (result) => {
+        if (result == null || result == false){
+          console.log('Initializing preferences with default values');
+          await this.storage.set(PreferencesService.PREF_INITIALIZED, true);
+          await this.storage.set(PreferencesService.PREF_DISTANCE, "km");
+          await this.storage.set(PreferencesService.PREF_TEMPERATURE, "c");
+          await this.storage.set(PreferencesService.PREF_LANGUAGE, "es");
+          await this.storage.set(PreferencesService.PREF_NOTIFICATION, true);
+          await this.storage.set(PreferencesService.PREF_SOUND, true);
 
-        let thisRef = this;
-        this._getAllPreferences(prefs).then(function(results){
-            //initialize in memory preferences
-            for(let i = 0; i < prefs.length; i++){
-              thisRef._preferences[prefs[i]] = results[i];
-            }
-          }, function (err) {
-            // If any of the preferences fail to read, err is the first error
-            console.log(err);
-          });
-      }
+          /*await this.storage.forEach((value, key, index) => {
+            console.log("key-value :: ", key, value);
+          });*/
+        } else console.log("Getting values from storage");
+        resolve();
+      });
     });
   }
 
-  getPreference(key){
-    return this._preferences[key];
+  async setPreference(key, value){
+    console.log("Setting preference");
+    await this.storage.set(key, value);
   }
 
-  setPreference(key, value){
-    this._preferences[key] = value;//update pref in memory
-    this._storage.set(key, value);//update pref in db
-  }
-
-  _getAllPreferences(prefs){
+  async _getAllPreferences(prefs){
     return Promise.all(prefs.map((key) => {
-      return this._storage.get(key);
+      return this.storage.get(key);
     }));
   }
 
-  _getPreference(key){
-    return this._storage.get(key);
+  async _getPreference(key){
+    return this.storage.get(key);
   }
 }

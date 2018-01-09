@@ -81,13 +81,15 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
+	ionViewWillEnter() {
+	}
 
 	ngOnChanges() { }
 
 	/**
 	 * Actions
 	 */
-	private startSlickJS():void{
+	private startSlickJS(){
 		this.$paises = new SlickJS($(this.paises.nativeElement), SETTINGS);
 	}
 
