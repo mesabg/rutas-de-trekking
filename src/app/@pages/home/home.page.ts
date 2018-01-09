@@ -33,6 +33,7 @@ import { SlickJS } from '../../../@ms/components';
 import { SETTINGS, SETTINGS_ICONS } from './home.page.slick-config';
 import { Country } from '../../#interfaces';
 import { CountriesApi, ParksApi } from '../../@api';
+import { Park } from '../../#interfaces';
 import { AriaImageComponent, AriaImageItem, AriaImageExport } from '../../@components';
 
 
@@ -100,16 +101,6 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 				this.process(response);
 			});
 		else this.process(response);
-		/*this.api.getCountries().subscribe((countries:Country[]) => {
-			this.$paises = new SlickJS($(this.paises.nativeElement), SETTINGS);
-			countries.forEach((country) => {
-				if (this.viewInit)
-					this.$paises.push($('<span>HOLAAAA COMO ESTASSS</span>'));
-				else this.afterViewInit.subscribe(() => {
-					this.$paises.push($('<span>HOLAAAA COMO ESTASSS</span>'));
-				});
-			});
-		});*/
 	}
 
 
@@ -119,12 +110,14 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 	//-- After initial view is rendered
 	private process(response:any):void {
 		if (response.state != "success") return;
-		let data = response.data;
-		data.forEach((parque) => {
+		let data:Park[] = <Park[]> response.data;
+
+		data.forEach((parque:Park) => {
 			this.render({
 				index: parque.id,
 				name: parque.nombre,
-				url: parque.logo
+				url: parque.logo,
+				slug: parque.slug
 			});
 		});
 	}
@@ -145,7 +138,10 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
             .onClick
             .subscribe((response:AriaImageExport) => {
 				//-- Do the routing
-				this.navCtrl.push('app-park-page', {'park-id': response.data.index })
+				this.navCtrl.push('app-park-page', {
+					'park-id': response.data.index,
+					'park-slug': response.data.slug
+				});
 			});
 			
 		(<AriaImageComponent>reference.instance)

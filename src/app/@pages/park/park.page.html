@@ -12,26 +12,33 @@
 
 <ion-tabs>
     <!--<ion-tab [root]="InfoPageRoot" tabTitle="Info" tabIcon="search" [rootParams]="{
-        'park-id': navParams.get('park-id')
+        'park-id': navParams.get('park-id'),
+        'park-slug': navParams.get('park-slug')
     }" (click)="dispose()"></ion-tab>-->
 
     <ion-tab [root]="InfoPageRoot" tabTitle="Info" tabIcon="search" [rootParams]="{
-        'park-id': navParams.get('park-id')
+        'park-id': navParams.get('park-id'),
+        'park-slug': navParams.get('park-slug')
     }"></ion-tab>
     <ion-tab [root]="RoutesPageRoot" tabTitle="Routes" tabIcon="map" [rootParams]="{
-        'park-id': navParams.get('park-id')
+        'park-id': navParams.get('park-id'),
+        'park-slug': navParams.get('park-slug')
     }"></ion-tab>
     <ion-tab [root]="LodgmentPageRoot" tabTitle="Lodgment" tabIcon="ios-moon" [rootParams]="{
-        'park-id': navParams.get('park-id')
+        'park-id': navParams.get('park-id'),
+        'park-slug': navParams.get('park-slug')
     }"></ion-tab>
     <ion-tab [root]="SearchPageRoot" tabTitle="Sunny" tabIcon="ios-sunny" [rootParams]="{
-        'park-id': navParams.get('park-id')
+        'park-id': navParams.get('park-id'),
+        'park-slug': navParams.get('park-slug')
     }"></ion-tab>
     <ion-tab [root]="ApnPageRoot" tabTitle="APN" tabIcon="ios-finger-print" [rootParams]="{
-        'park-id': navParams.get('park-id')
+        'park-id': navParams.get('park-id'),
+        'park-slug': navParams.get('park-slug')
     }"></ion-tab>
 
     <ion-tab [root]="RouteDetailRoot" tabTitle="RouteDetail" tabIcon="ios-finger-print" [rootParams]="{
-        'park-id': navParams.get('park-id')
+        'park-id': navParams.get('park-id'),
+        'park-slug': navParams.get('park-slug')
     }"></ion-tab>
 </ion-tabs>

@@ -4,6 +4,7 @@ export interface AriaImageItem {
     index:number;
     name:string;
     url:string;
+    slug:string;
 };
 
 export interface AriaImageExport {

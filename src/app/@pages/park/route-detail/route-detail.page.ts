@@ -42,9 +42,7 @@ export class RouteDetailPage implements OnInit {
 	/**
 	 * Events
 	 */
-	async ngOnInit() {
-        
-    }
+	ngOnInit() {  }
 
     async ionViewDidLoad(){ }
     async ionViewWillEnter(){
@@ -72,7 +70,8 @@ export class RouteDetailPage implements OnInit {
     async retrieve(){
         //-- Get data
         let actualRouteSlug = await this.storage.retrieve('actual-route-slug');
-        this.route = (await this.routesApi.getRouteDetail(this.navParams.data['country'], this.navParams.data['park-slug'], actualRouteSlug).toPromise());
+        this.route = await this.routesApi.getRouteDetail(actualRouteSlug);
+        console.log("Route retrieved :: ", this.route);
         
         //-- Prepare initial data
         this.description = this.route.descripcion;

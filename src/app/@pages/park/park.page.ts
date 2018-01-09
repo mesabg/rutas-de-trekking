@@ -23,7 +23,7 @@ import { ParksApi } from '../../@api';
 
 @IonicPage({
 	name: 'app-park-page',
-	segment: 'park/:park-id'
+	segment: 'park/:park-id/:park-slug'
 })
 @Component({
 	selector: 'app-park-page',

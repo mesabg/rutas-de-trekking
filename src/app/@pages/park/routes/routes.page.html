@@ -1,49 +1,8 @@
-<!--<ion-header>
-	<ion-navbar>
-		<ion-title>
-			Routes (Park)
-		</ion-title>
-	</ion-navbar>
-</ion-header>-->
-		
+
 <ion-content padding>
 	<ion-list>
 		<ion-item *ngFor="let route of routes | async" (click)="navigate(route.slug)">
 			<h3 custom-list>{{route.nombre}}</h3>
 		</ion-item>
 	</ion-list>
-	<!--<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-		<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-	</agm-map>
-
-	<ion-grid class="bottom-grid">
-		<ion-row>
-			<ion-col col-7 class="main-content">
-				<ion-row justify-content-center align-items-center>
-					<ion-col col-12>
-						<span>{{title}}</span>
-					</ion-col>
-
-					<ion-col>
-						<span>{{time}}</span>
-					</ion-col>
-					<ion-col>
-						<span>{{distance}}</span>
-					</ion-col>
-					<ion-col align-items-center>
-						<span>{{velocity}}</span>
-					</ion-col>
-				</ion-row>
-			</ion-col>
-			<ion-col>
-				<ion-icon name="ios-speedometer"></ion-icon>
-			</ion-col>
-			<ion-col>
-				<ion-icon name="easel"></ion-icon>
-			</ion-col>
-			<ion-col>
-				EMPEZAR
-			</ion-col>
-		</ion-row>
-	</ion-grid>-->
 </ion-content>

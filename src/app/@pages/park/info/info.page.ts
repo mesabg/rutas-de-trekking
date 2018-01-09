@@ -41,7 +41,6 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 	private async retrieve(){
 		console.log("Before retrieve");
 		let response = await this.api.getPark(this.navParams.data['park-id']);
-		//if (response.status != "success") return;
 		this.description = (<Park>response.data[0]).descripcion;
 		console.log("Descripcion del parque :: ", this.description);
 	}
