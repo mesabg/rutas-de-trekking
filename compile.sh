@@ -1,6 +1,6 @@
 
 function release {
-    # Generate las build
+    # Generate last build
     # npm run clean
     # npm run build
 
