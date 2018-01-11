@@ -21,6 +21,7 @@ function release {
     zipalign -v 4 $base/android-release-unsigned.apk $base/$1.apk
     
     # Copy to familiar folder
+    mkdir -p $apk
     cp $base/$1.apk $apk/$1.apk --force
 }
 
