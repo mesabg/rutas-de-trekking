@@ -178,4 +178,20 @@ export class ApiService {
 			console.log("Socket error :: ", error);
 		}
 	}
+
+
+	/**
+	 * Full Commited requests
+	 */
+	public async fullUrlGet(url:string):Promise<any>{
+		return new Promise((resolve, reject) => {
+			$.getJSON(url, 
+				function(data){
+					resolve(data.contents);
+				},
+				function(error){
+					reject(error);
+				});
+		});
+	}
 }

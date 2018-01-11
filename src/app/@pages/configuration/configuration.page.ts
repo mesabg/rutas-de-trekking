@@ -57,7 +57,6 @@ export class ConfigurationPage implements OnInit {
 
 	async changePreferenceGroup(event, key){
 		if (!this.afterViewWillInit) return null;
-		console.log("Event value :: ", event);
 		await this.preferencesService.setPreference(key, event);
 	}
 

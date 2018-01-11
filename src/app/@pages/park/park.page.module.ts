@@ -10,12 +10,14 @@ import { IonicPageModule } from 'ionic-angular';
  */
 import { ParkPage } from './park.page';
 import { ApiModule } from '../../@api';
+import { ServicesModule } from '../../@services';
 
 
 @NgModule({
 	imports: [
 		CommonModule,
 		ApiModule,
+		ServicesModule,
 		IonicPageModule.forChild(ParkPage),
 	],
 	declarations: [
