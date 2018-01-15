@@ -69,8 +69,8 @@ export class RouteDetailPage implements OnInit {
     //-- General functions
     async retrieve(){
         //-- Get data
-        let actualRouteSlug = await this.storage.get('actual-route-slug');
-        this.route = await this.routesApi.getRouteDetail(actualRouteSlug);
+        let actualRouteId = await this.storage.get('actual-route-id');
+        this.route = await this.routesApi.getRouteByIdFromLocal(actualRouteId);
         console.log("Route retrieved :: ", this.route);
         
         //-- Prepare initial data

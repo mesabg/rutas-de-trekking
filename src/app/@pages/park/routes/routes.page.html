@@ -1,7 +1,7 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item *ngFor="let route of routes | async" (click)="navigate(route.slug)">
+		<ion-item *ngFor="let route of routes | async" (click)="navigate(route.id)">
 			<h3 custom-list>{{route.nombre}}</h3>
 		</ion-item>
 	</ion-list>

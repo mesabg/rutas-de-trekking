@@ -7,6 +7,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { AgmCoreModule } from '@agm/core';
 import { PolylineManager, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation';
+import { IonicStorageModule } from '@ionic/storage';
 
 /**
  * Local dependencies (modules)
@@ -35,7 +36,11 @@ import { RouteDetailPage } from './route-detail';
 			apiKey: 'AIzaSyCHbQP3rbxe8JLnQi0qsSRBAdcAw5_uUYg'
 		}),
 		ApiModule,
-		ServicesModule
+		ServicesModule,
+		IonicStorageModule.forRoot({
+			name: '__trekking-db',
+			driverOrder: ['indexeddb', 'sqlite', 'websql']
+		})
 	],
 	declarations:[
         ParkApnPage,

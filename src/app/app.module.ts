@@ -14,6 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Layout } from './layout';
 import { ParkSyncModule } from './@pages/park';
 import { ServicesModule } from './@services';
+import { ApiModule } from './@api';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ServicesModule } from './@services';
 		BrowserModule,
 		ParkSyncModule,
 		ServicesModule,
+		ApiModule,
 		IonicModule.forRoot(Layout),
 		IonicStorageModule.forRoot({
 			name: '__trekking-db',

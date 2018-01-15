@@ -14,7 +14,7 @@ import { Park, Country } from '../../#interfaces';
 
 @IonicPage({
 	name: 'app-parks-page',
-	segment: 'parks/:country'
+	segment: 'parks/:country-id/:country-slug'
 })
 @Component({
 	selector: 'app-parks-page',
@@ -22,7 +22,7 @@ import { Park, Country } from '../../#interfaces';
 	styles: [`
 	app-parks-page{
 		.toolbar-background{
-		background-color: red !important;
+			background-color: red !important;
 		}
 	}
 	`],
@@ -32,7 +32,7 @@ export class ParksPage implements OnInit {
 	/**
 	 * Variables
 	 */
-	public parks:Observable<Park[]>;
+	public parks:Promise<any[]>;
 	public header:{img:string, title:string} = {
 		img: '',
 		title: ''
@@ -43,25 +43,27 @@ export class ParksPage implements OnInit {
 		public navParams:NavParams,
 		public parksApi:ParksApi,
 		public countriesApi:CountriesApi) {
-		this.retrieveData(this.navParams.get('country'));
+		
 	}
 
 	/**
 	 * Events
 	 */
-	ngOnInit() { }
+	ngOnInit() {  }
 	ionViewDidLoad(){ }
+	async ionViewWillEnter(){ await this.retrieveData( parseInt(this.navParams.get('country-id')) ); }
 	ionViewWillLeave(){ }
 
 	/**
 	 * Actions
 	 */
-	private async retrieveData(countrySlug:string):Promise<any>{
-		//this.parks = this.parksApi.getParks(countrySlug);
-		let country:Country = await this.countriesApi.getCountry(countrySlug).toPromise();
+	private async retrieveData(countryId:number):Promise<any>{
+		this.parks = this.parksApi.getParksFromLocal(countryId);
+		console.log("Parks here are ", await this.parksApi.getParksFromLocal(countryId));
+		let country = await this.countriesApi.getCountryFromLocal(countryId);
 		this.header = {
-			img: country.img,
-			title: country.titulo
+			img: country.logo == undefined ? null : country.logo,
+			title: country.country
 		};
 	}
 }

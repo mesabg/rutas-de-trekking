@@ -7,6 +7,9 @@ import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+/**
+ * Local dependencies
+ */
 
 @Component({
 	selector: 'app-layout',
@@ -22,9 +25,9 @@ export class LayoutComponent implements OnInit {
 			// Here you can do any higher level native things you might need.
 			console.log("Platform is ready");
 			let localForage:LocalForage = await storage.ready();
-			let keys = await localForage.keys();
 			console.log("Local forage is ready", localForage);
-			console.log("Local forage keys", keys);
+			
+
 			statusBar.styleDefault();
 			splashScreen.hide();
 		});

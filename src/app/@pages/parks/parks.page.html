@@ -12,8 +12,10 @@
 		<ion-item 
 			*ngFor="let park of parks | async" 
 			(click)="navCtrl.push('app-park-page', {
-				'park-slug': park.slug,
-				'country': navParams.get('country')
+				'country-id': navParams.get('country-id'),
+				'country-slug': navParams.get('country-slug'),
+				'park-id': park.id,
+				'park-slug': park.slug
 			})">
 			<h2>{{park.nombre}}</h2>
 			<p>{{park.locacion}}</p>

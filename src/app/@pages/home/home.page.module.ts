@@ -3,6 +3,7 @@
  */
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
 
 /**
  * Local dependencies
@@ -22,7 +23,11 @@ import { HomePage } from './home.page';
         ComponentsModule,
         IonicPageModule.forChild(HomePage),
         ServicesModule,
-        ApiModule
+        ApiModule,
+        IonicStorageModule.forRoot({
+			name: '__trekking-db',
+			driverOrder: ['indexeddb', 'sqlite', 'websql']
+		})
     ],
     entryComponents: [HomePage],
     exports: [HomePage]

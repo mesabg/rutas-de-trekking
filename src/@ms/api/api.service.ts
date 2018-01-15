@@ -16,17 +16,17 @@ import { SocketIO } from './socket.class';
 
 const environment = {
 	production: false,
+	anyorigin: true,
 	API:{
-		protocol: 'http',
-		baseURL: 'trekking.pixeloidestudios.com/api/v1',
-		port: '3000',
-		get: function():string{ return `${environment.API.protocol}://${environment.API.baseURL}/`; }
+		//baseURL: 'http://trekking.pixeloidestudios.com/api/v1/',
+		baseURL: 'http://rutasdetrekking.com/api/v1/',
+		get: function():string{ return environment.API.baseURL; }
 	},
 	SOCKET:{
 		protocol: 'http',
 		baseURL: 'localhost',
 		port: '3000',
-		get: function():string{ return `${environment.API.protocol}://${environment.API.baseURL}:${environment.API.port}/`; }
+		get: function():string{ return `${environment.SOCKET.protocol}://${environment.SOCKET.baseURL}:${environment.SOCKET.port}/`; }
 	}
 };
 
@@ -53,8 +53,18 @@ export class ApiService {
 	/**
 	 * Common http calls
 	 */
-	public get(method:string):Observable<any>{
-		return this.http.get(this.baseUrl + method, {headers: this.headers});
+	public async get(method:string):Promise<any> {
+		let url = environment.anyorigin ? `http://anyorigin.com/go?url=${encodeURIComponent(this.baseUrl + method)}&callback=?` : this.baseUrl + method;
+		console.log("URL is ", url);
+
+		try {
+			let response = await this.fullUrlGet(url);
+			if (environment.anyorigin) return response.contents;
+			else return response;
+		} catch (error) {
+			console.log("An error ocurred trying to fetch data");
+			return error;
+		}
 	}
 	
 	public post(method:string, body:any):Observable<any>{
@@ -185,13 +195,14 @@ export class ApiService {
 	 */
 	public async fullUrlGet(url:string):Promise<any>{
 		return new Promise((resolve, reject) => {
-			$.getJSON(url, 
-				function(data){
-					resolve(data.contents);
-				},
-				function(error){
-					reject(error);
-				});
+			$.getJSON(url, (data) => {resolve(data);}, (error) => { reject(error); });
+		});
+	}
+
+	public async anyoriginGet(baseUrl:string):Promise<any>{
+		let url = `http://anyorigin.com/go?url=${encodeURIComponent(baseUrl)}&callback=?`;
+		return new Promise((resolve, reject) => {
+			$.getJSON(url, (data) => {resolve(data.contents);}, (error) => { reject(error); });
 		});
 	}
 }

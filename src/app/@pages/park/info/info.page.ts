@@ -30,11 +30,11 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 	/**
 	 * Events
 	 */
-	ngOnInit() {
-		this.retrieve();
-	}
+	ngOnInit() {}
 	ngAfterViewInit() { }
 	ionViewDidLoad(){ }
+	//async ionViewWillEnter(){ await this.retrieve(); console.log("Here we are"); }
+	async ionViewDidEnter(){ console.log("Here we are"); await this.retrieve(); }
 	ionViewWillLeave(){ }
 
 
@@ -42,10 +42,9 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 	 * Actions
 	 */
 	private async retrieve(){
-		console.log("Before retrieve");
-		let response = await this.api.getPark(this.navParams.data['park-id']);
+		let park = await this.api.getParkByIdFromLocal( parseInt(this.navParams.data['park-id']) );
 		let language = await this.storage.get( PreferencesService.PREF_LANGUAGE );
-		this.description = (<Park>response.data[0])[`descripcion_${language}`];
+		this.description = park[`descripcion_${language}`];
 		this.description = this.description === null || this.description === undefined ? '' : this.description;
 		console.log("Descripcion del parque :: ", this.description);
 	}

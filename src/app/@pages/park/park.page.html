@@ -12,32 +12,46 @@
 
 <ion-tabs>
     <!--<ion-tab [root]="InfoPageRoot" tabTitle="Info" tabIcon="search" [rootParams]="{
+        'country-id': navParams.get('country-id'),
+        'country-slug': navParams.get('country-slug'),
         'park-id': navParams.get('park-id'),
         'park-slug': navParams.get('park-slug')
     }" (click)="dispose()"></ion-tab>-->
 
     <ion-tab [root]="InfoPageRoot" tabTitle="Info" tabIcon="search" [rootParams]="{
+        'country-id': navParams.get('country-id'),
+        'country-slug': navParams.get('country-slug'),
         'park-id': navParams.get('park-id'),
         'park-slug': navParams.get('park-slug')
     }"></ion-tab>
     <ion-tab [root]="RoutesPageRoot" tabTitle="Routes" tabIcon="map" [rootParams]="{
+        'country-id': navParams.get('country-id'),
+        'country-slug': navParams.get('country-slug'),
         'park-id': navParams.get('park-id'),
         'park-slug': navParams.get('park-slug')
     }"></ion-tab>
     <ion-tab [root]="LodgmentPageRoot" tabTitle="Lodgment" tabIcon="ios-moon" [rootParams]="{
+        'country-id': navParams.get('country-id'),
+        'country-slug': navParams.get('country-slug'),
         'park-id': navParams.get('park-id'),
         'park-slug': navParams.get('park-slug')
     }"></ion-tab>
     <ion-tab [root]="SearchPageRoot" tabTitle="Sunny" tabIcon="ios-sunny" [rootParams]="{
+        'country-id': navParams.get('country-id'),
+        'country-slug': navParams.get('country-slug'),
         'park-id': navParams.get('park-id'),
         'park-slug': navParams.get('park-slug')
     }"></ion-tab>
     <ion-tab [root]="ApnPageRoot" tabTitle="APN" tabIcon="ios-finger-print" [rootParams]="{
+        'country-id': navParams.get('country-id'),
+        'country-slug': navParams.get('country-slug'),
         'park-id': navParams.get('park-id'),
         'park-slug': navParams.get('park-slug')
     }"></ion-tab>
 
     <ion-tab [root]="RouteDetailRoot" tabTitle="RouteDetail" tabIcon="ios-finger-print" [rootParams]="{
+        'country-id': navParams.get('country-id'),
+        'country-slug': navParams.get('country-slug'),
         'park-id': navParams.get('park-id'),
         'park-slug': navParams.get('park-slug')
     }"></ion-tab>

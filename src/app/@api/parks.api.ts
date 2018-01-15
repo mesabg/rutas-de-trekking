@@ -3,6 +3,8 @@
  */
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Storage } from '@ionic/storage';
+//import Defiant from 'defiant/dist/defiant.min';
 import 'rxjs/add/operator/toPromise';
 import xml2js from 'xml2js';
 import $ from 'jquery';
@@ -15,36 +17,56 @@ import { ApiService } from '../../@ms/api';
 
 @Injectable()
 export class ParksApi {
-	constructor(private apiService:ApiService) { }
+	constructor(private apiService:ApiService, private storage:Storage) { }
 
-    public getParks():Observable<any>{
-        return this.apiService.get(`parques`)
-        .map(response => response.json());
+    public async getParks():Promise<any>{
+        try {
+            return (await this.apiService.get(`parques`)).data;
+        } catch (error) {
+            console.log("An error ocurred retrieving the parks");
+            return error;
+        }
     }
 
+    public async getParksFromLocal(country_id:number):Promise<any>{
+        try {
+            return (await this.storage.get('parks')).filter(value => value.country_id === country_id);
+        } catch (error) {
+            console.log("An error ocurred retrieving the parks");
+            return error;
+        }
+    }
 
-    
-
-    public getPark(parkId:number):Promise<any>{
-        return this.apiService.get(`parques/${parkId}`)
-        .map(response => response.json())
-        .toPromise();
+    public async getParkByIdFromLocal(id:number):Promise<any> {
+        try {
+            return ((await this.storage.get('parks')).filter(value => value.id === id))[0];
+        } catch (error) {
+            console.log("An error ocurred retrieving the park");
+            return error;
+        }
     }
     
 
-    public getParkWeather(parkSlug:number):Promise<any>{
-        return this.apiService.get(`parques/${parkSlug}`)
-        .map(response => response.json())
-        .map(async (response) => {
-            let json = (response.data[0]);
-            let weather = await this.apiService.fullUrlGet(`http://anyorigin.com/go?url=${encodeURIComponent(json.clima_dia)}&callback=?`);
-            weather = await this.toJSON(weather);
-            let url = weather.report.location[0].interesting[0].url[0]._;
-            //let predictionHtml = await this.apiService.fullUrlGet(`http://anyorigin.com/go?url=${encodeURIComponent(url)}&callback=?`);
-            //let jqueryObject = $.parseHTML(predictionHtml);
-            return url;
-        })
-        .toPromise();
+    public async getPark(parkId:number):Promise<any>{
+        return this.apiService.get(`parques/${parkId}`);
+    }
+    
+
+    public async getParkWeather(parkId:number):Promise<any>{
+        try {          
+            let park = await this.getParkByIdFromLocal(parkId);
+            console.log("Park is :: ", park);
+            console.log("Clima dia :: ", park.clima_dia);
+            console.log("Clima hora :: ", park.clima_hora);
+            let clima = {
+                dia: await this.toJSON(await this.apiService.anyoriginGet(park.clima_dia)),
+                hora: await this.toJSON(await this.apiService.anyoriginGet(park.clima_hora))
+            };
+            return clima;
+        } catch (error) {
+            console.log("An error ocurred trying to retrieve the weather");
+            return error;
+        }
     }
     
 

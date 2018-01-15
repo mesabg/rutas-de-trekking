@@ -2,6 +2,7 @@
  * Global dependencies
  */
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
 
 
@@ -14,21 +15,50 @@ import { ApiService } from '../../@ms/api';
 
 @Injectable()
 export class RoutesApi {
-	constructor(private apiService:ApiService) { }
+	constructor(private apiService:ApiService, private storage:Storage) { }
 
-    public async getRoutes(parkSlug:string):Promise<Route[]>{
-		let response:any = await this.apiService.get(`routes/parques/${parkSlug}`)
-            .map(response => response.json())
-            .toPromise();
-        return <Promise<Route[]>>response.data;
+    public async getAllRoutes():Promise<any>{
+		try {
+            return (await this.apiService.get(`routes`)).data;
+        } catch (error) {
+            console.log("An error ocurred getting the routes data");
+            return error;
+        }
+    }
+
+    public async getRoutes(parkSlug:string):Promise<any>{
+        try {
+            return (await this.apiService.get(`routes/parques/${parkSlug}`)).data;
+        } catch (error) {
+            console.log("An error ocurred getting the routes data by park slug");
+            return error;
+        }
+    }
+
+
+    public async getRoutesByParkFromLocal(parkId:number):Promise<any>{
+        try {
+            return (await this.storage.get('routes')).filter(value => value.park_id === parkId);
+        } catch (error) {
+            console.log("An error ocurred getting the routes data by park slug");
+            return error;
+        }
+    }
+
+
+    public async getRouteByIdFromLocal(routeId:number):Promise<any>{
+        try {
+            return ((await this.storage.get('routes')).filter(value => value.id === routeId))[0];
+        } catch (error) {
+            console.log("An error ocurred getting the routes data by park slug");
+            return error;
+        }
     }
 
 
 
     public async getRouteDetail(routeSlug:string):Promise<Route> {
-        let response:any = await this.apiService.get(`routes/${routeSlug}`)
-            .map(response => response.json())
-            .toPromise();
+        let response:any = await this.apiService.get(`routes/${routeSlug}`);
         let route:any = await <Route>response.data[0];
         route.puntos = JSON.parse(route.puntos);
         route.altura = Math.round(parseFloat(route.altura));

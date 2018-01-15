@@ -18,6 +18,7 @@ import {
 	IonicPage, 
 	NavController, 
 	NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 
@@ -32,7 +33,7 @@ import * as $ from "jquery";
 import { SlickJS } from '../../../@ms/components';
 import { SETTINGS, SETTINGS_ICONS } from './home.page.slick-config';
 import { Country } from '../../#interfaces';
-import { CountriesApi, ParksApi } from '../../@api';
+import { CountriesApi, ParksApi, LoaderApi } from '../../@api';
 import { Park } from '../../#interfaces';
 import { AriaImageComponent, AriaImageItem, AriaImageExport } from '../../@components';
 
@@ -59,14 +60,15 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 		nombre:string;
 		logo:string;
 	}>;
-
 	private viewInit:boolean = false;
 	private afterViewInit:EventEmitter<void> = new EventEmitter<void>();
 
 	constructor(
 		public navCtrl:NavController, 
 		public navParams:NavParams,
-		public api:ParksApi,
+		public api:CountriesApi,
+		public loader:LoaderApi,
+		private storage:Storage,
 		private resolver:ComponentFactoryResolver) {}
 
 	/**
@@ -94,15 +96,21 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 	}
 
 	private async retrieve():Promise<void>{
-		let response = await this.api.getParks().toPromise();
+		//-- Get INITIAL data
+		await this.storage.set('data_arrived', false);
+		await this.loader.toLocalStorage();
+		await this.loader.dataArrive();
+
+		let paises = await this.api.getCountriesFromLocal();
+		console.log("Paises ", paises);
 
 		//-- Wait till´ initial view is rendered
 		if (!this.viewInit) 
 			this.afterViewInit.subscribe(() => {
 				//-- View is initiated, go to process
-				this.process(response);
+				this.process(paises);
 			});
-		else this.process(response);
+		else this.process(paises);
 	}
 
 
@@ -110,16 +118,13 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 	//-- Process data
 	//-- After retrieve
 	//-- After initial view is rendered
-	private process(response:any):void {
-		if (response.state != "success") return;
-		let data:Park[] = <Park[]> response.data;
-
-		data.forEach((parque:Park) => {
+	private process(paises:any):void {
+		paises.forEach((pais) => {
 			this.render({
-				index: parque.id,
-				name: parque.nombre,
-				url: parque.logo,
-				slug: parque.slug
+				index: pais.id,
+				name: pais.country,
+				url: pais.logo,
+				slug: pais.alpha_2
 			});
 		});
 	}
@@ -140,9 +145,9 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
             .onClick
             .subscribe((response:AriaImageExport) => {
 				//-- Do the routing
-				this.navCtrl.push('app-park-page', {
-					'park-id': response.data.index,
-					'park-slug': response.data.slug
+				this.navCtrl.push('app-parks-page', {
+					'country-id': response.data.index,
+					'country-slug': response.data.slug
 				});
 			});
 			

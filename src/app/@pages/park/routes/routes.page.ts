@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
 	templateUrl: './routes.page.html'
 })
 export class ParkRoutesPage implements OnInit {
-	public routes:Promise<Route[]>;
+	public routes:Promise<any[]>;
 
 	constructor(
 		public navParams: NavParams,
@@ -35,14 +35,11 @@ export class ParkRoutesPage implements OnInit {
 	ionViewWillLeave(){ }
 
 	private async retrieve(){
-		this.routes = this.routesApi.getRoutes(this.navParams.data['park-slug']);
-		let response = await this.routesApi.getRoutes(this.navParams.data['park-slug']);
-		console.log("Park slug :: ", this.navParams.data['park-slug']);
-		console.log("Bunch of routes :: ", response);
+		this.routes = this.routesApi.getRoutesByParkFromLocal( parseInt(this.navParams.data['park-id']) );
 	}
 
-	public async navigate(routeSlug:string){
-		await this.storage.set('actual-route-slug', routeSlug);
+	public async navigate(routeId:number){
+		await this.storage.set('actual-route-id', routeId);
 		await this.navCtrl.parent.select(5);
 	}
 }
