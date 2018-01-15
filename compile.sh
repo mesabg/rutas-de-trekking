@@ -30,4 +30,4 @@ apk=apk
 
 
 # run build
-release RutasDeTrekking_sdk21
+release RutasDeTrekking_sdk21_desarrollo
