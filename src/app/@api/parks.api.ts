@@ -63,8 +63,8 @@ export class ParksApi {
                 hora: await this.toJSON(await this.apiService.anyoriginGet(park.clima_hora))
             };*/
             return {
-                dia: await this.apiService.get(`weather/${parkId}?dia=true`),
-                hora: await this.apiService.get(`weather/${parkId}?hora=true`)
+                dia: (await this.apiService.get(`weather/${parkId}?dia=true`)).data,
+                hora: (await this.apiService.get(`weather/${parkId}?hora=true`)).data
             };
         } catch (error) {
             console.log("An error ocurred trying to retrieve the weather");

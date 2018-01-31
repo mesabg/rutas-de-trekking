@@ -962,48 +962,32 @@
 						</defs>
 					</svg>
 				</div>
-				<div id="iconsOcult">
-					<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-						<g id="LB_1" fill="#FFF">
-							<path d="M16 32C7.164 32 0 24.836 0 16S7.164 0 16 0s16 7.164 16 16-7.164 16-16 16zm0-1.6c8.041 0 14.56-6.519 14.56-14.56S24.041 1.28 16 1.28 1.44 7.799 1.44 15.84 7.959 30.4 16 30.4z"></path>
-							<circle cx="8.72" cy="10.64" r="2.48"></circle>
-							<circle cx="16.48" cy="4.32" r="1.28"></circle>
-							<circle cx="26.32" cy="9.84" r="1.68"></circle>
-							<circle cx="22.56" cy="19.68" r="2.56"></circle>
-							<circle cx="13.52" cy="18.16" r="1.52"></circle>
-							<circle cx="10.8" cy="23.76" r="1.52"></circle>
-							<circle cx="5.12" cy="18.4" r="1.28"></circle>
-							<circle cx="19.28" cy="28.24" r="1.2"></circle>
-						</g>
-					</svg>
-				</div>
 				<div id="colAzul" class="cols cFondo-HA-0">
 					<div class="contH1-1 clearfix">
 						<div id="contendorHora">
 							<h1 class="T1Loc color-texto-t100-0">El Tiempo en {{ parkName }}</h1>
 							<dl id="newhActual">
-								<dt class="ddTime" title="Hora"> <span class="sHour color-texto-t85-0">{{currentHour}}</span> <abbr class="ddDesc T1Loc color-texto-t100-0" title="Descripción Atmosférica">Cielos Nubosos</abbr> </dt>
+								<dt class="ddTime" title="Hora" style="width:100%;"> 
+									<span class="sHour color-texto-t85-0">{{currentHour}}</span> 
+									<abbr class="ddDesc T1Loc color-texto-t100-0" title="Descripción Atmosférica">{{cieloDescripcion}}</abbr> 
+								</dt>
 
 								<dd id="simbTemp">
 									<span class="iAct" title="">
-										<svg class="simbW" version="1.1" xmlns="http://www.w3.org/2000/svg">
-											<use class="useS" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sW3n" data="sp3"></use>
-										</svg>
+										<img [attr.src]="cieloIcono" [attr.alt]="cieloDescripcion">
 									</span>
-									<span id="tActual" class="ddTemp changeUnitT T1Loc color-texto-t100-0" title="Temp." data="8.22|0|">8°</span> 
+									<span id="tActual" class="ddTemp changeUnitT T1Loc color-texto-t100-0" title="Temp." data="8.22|0|">{{tempMax}}°</span> 
 								</dd>
-								<!--<dd id="ddDades" class="T1Loc color-texto-t100-0">
+								<!-- AQUI VA LA LUNA -->
+								<dd id="ddDades" class="T1Loc color-texto-t100-0">
 									<span class="spanL">
-										<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-											<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#LB_1"></use>
-										</svg>
+										<img [attr.src]="lunaIcono" [attr.alt]="lunaDescripcion">
 									</span>
 									<ul>
-										<li class="uvDesc">Luna Nueva</li>
-										<li class="ilum"><span>Iluminada:</span><abbr>2%</abbr></li>
+										<li class="uvDesc">{{lunaDescripcion}}</li>
 									</ul>
 								</dd>
-								<dd id="ddSTerm" class="T1Loc color-texto-t100-0"> Sensación de <abbr id="spTerm" class="changeUnitT" title="Sensación Térmica" data="7|0|">7°</abbr> </dd>-->
+								<!--<dd id="ddSTerm" class="T1Loc color-texto-t100-0"> Sensación de <abbr id="spTerm" class="changeUnitT" title="Sensación Térmica" data="7|0|">7°</abbr> </dd>-->
 							</dl>
 						</div>
 					</div>
@@ -1012,16 +996,15 @@
 						<div id="contDias">
 							<div class="loc-dia">
 								<div id="contDl">
-									<dl class="oldDl l0 cambioDia 1/3">
+									<dl *ngFor="let day of days; let i=index;" class="oldDl l0 cambioDia 1/3">
 										<dt>
-											<time datetime="2018-01-15"> <strong>Hoy</strong> 15 enero </time> 
+											<time *ngIf="i==0" [attr.datetime]="day.date.value | date:'yyyy-MM-dd'"> <strong>Hoy</strong> {{ day.date.value | date:'d MMMM' }} </time> 
+											<time *ngIf="i!=0" [attr.datetime]="day.date.value | date:'yyyy-MM-dd'"> <strong style="font-weight:400;">{{day.date.name}}</strong> {{ day.date.value | date:'d MMMM' }} </time> 
 											<div>
 												<span class="simbPng mg6">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s6" data="sp2"></use>
-													</svg>
+													<img [attr.src]="day.weather.image" [attr.alt]="day.weather.rain">
 												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="0.2|0" title="Lluvia 0.2 mm">0.2</abbr> 
+												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="0.2|0" title="Lluvia 0.2 mm">{{day.weather.rain}}</abbr> 
 											</div>
 										</dt>
 										<dd class="d1">
@@ -1031,7 +1014,7 @@
 														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
 													</svg>
 												</span>
-												<span id="Tmax0" class="changeUnitT" data="15|0|"> 15° </span> 
+												<span id="Tmax0" class="changeUnitT" data="15|0|"> {{day.maxtemp}}° </span> 
 											</abbr>
 											<abbr title="Temperatura Mínima 6°">
 												<span>
@@ -1039,520 +1022,15 @@
 														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
 													</svg>
 												</span>
-												<span id="Tmin0" class="changeUnitT" data="6|0|"> 6° </span> 
+												<span id="Tmin0" class="changeUnitT" data="6|0|"> {{day.mintemp}}° </span> 
 											</abbr>
 										</dd>
 										<dd class="d2">
 											<span>
-												<svg class="iC57" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA57" data="sp2"></use>
-												</svg>
+												<img [attr.src]="day.wind.image" [attr.alt]="day.wind.value">
 											</span>
-											<abbr id="wR0" class="changeUnitW" title="Viento" data="61|0"> 61 km/h </abbr> 
+											<abbr id="wR0" class="changeUnitW" title="Viento" data="61|0"> {{day.wind.value}} </abbr> 
 										</dd>
-									</dl>
-									<dl class="oldDl cambioDia 2/3">
-										<dt>
-											<time datetime="2018-01-16"> <strong>Mañana</strong> 16 enero </time> 
-											<div>
-												<span class="simbPng mg9">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s9" data="sp2"></use>
-													</svg>
-												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="26.9|0" title="Lluvia 26.9 mm">26.9</abbr> 
-											</div>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 14°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax1" class="changeUnitT" data="14|0|"> 14° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 7°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin1" class="changeUnitT" data="7|0|"> 7° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC80" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA80" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR1" class="changeUnitW" title="Viento" data="81|0"> 81 km/h </abbr> 
-										</dd>
-									</dl>
-									<dl class="oldDl cambioDia 3/3">
-										<dt>
-											<time datetime="2018-01-17"> <strong>Miércoles</strong> 17 enero </time> 
-											<div>
-												<span class="simbPng mg9">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s9" data="sp2"></use>
-													</svg>
-												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="26.4|0" title="Lluvia 26.4 mm">26.4</abbr> 
-											</div>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 12°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax2" class="changeUnitT" data="12|0|"> 12° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 5°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin2" class="changeUnitT" data="5|0|"> 5° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC65" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA65" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR2" class="changeUnitW" title="Viento" data="66|0"> 66 km/h </abbr> 
-										</dd>
-									</dl>
-									<dl class="oldDl cambioDia 4/3">
-										<dt>
-											<time datetime="2018-01-18"> <strong>Jueves</strong> 18 enero </time> 
-											<div>
-												<span class="simbPng mg9">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s9" data="sp2"></use>
-													</svg>
-												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="17|0" title="Lluvia 17 mm">17</abbr> 
-											</div>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 16°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax3" class="changeUnitT" data="16|0|"> 16° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 7°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin3" class="changeUnitT" data="7|0|"> 7° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC82" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA82" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR3" class="changeUnitW" title="Viento" data="97|0"> 97 km/h </abbr> 
-										</dd>
-									</dl>
-									<dl class="oldDl bTop cambioDia 5/3">
-										<dt>
-											<time datetime="2018-01-19"> <strong>Viernes</strong> 19 enero </time> 
-											<div>
-												<span class="simbPng mg5">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s5" data="sp2"></use>
-													</svg>
-												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="2.7|0" title="Lluvia 2.7 mm">2.7</abbr> 
-											</div>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 15°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax4" class="changeUnitT" data="15|0|"> 15° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 8°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin4" class="changeUnitT" data="8|0|"> 8° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC65" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA65" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR4" class="changeUnitW" title="Viento" data="71|0"> 71 km/h </abbr> 
-										</dd>
-									</dl>
-									<dl class="oldDl cambioDia 6/3">
-										<dt>
-											<time datetime="2018-01-20"> <strong>Sábado</strong> 20 enero </time> 
-											<div>
-												<span class="simbPng mg8">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s8" data="sp2"></use>
-													</svg>
-												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="9.7|0" title="Lluvia 9.7 mm">9.7</abbr> 
-											</div>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 14°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax5" class="changeUnitT" data="14|0|"> 14° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 6°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin5" class="changeUnitT" data="6|0|"> 6° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC81" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA81" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR5" class="changeUnitW" title="Viento" data="89|0"> 89 km/h </abbr> 
-										</dd>
-									</dl>
-									<dl class="oldDl cambioDia 7/3">
-										<dt>
-											<time datetime="2018-01-21"> <strong>Domingo</strong> 21 enero </time> 
-											<span class="simbPng pdleft">
-												<svg class="symb sb2" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s2" data="sp2"></use>
-												</svg>
-											</span>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 16°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax6" class="changeUnitT" data="16|0|"> 16° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 3°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin6" class="changeUnitT" data="3|0|"> 3° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC57" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA57" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR6" class="changeUnitW" title="Viento" data="50|0"> 50 km/h </abbr> 
-										</dd>
-										
-									</dl>
-									<dl class="oldDl cambioDia 8/3">
-										<dt>
-											<time datetime="2018-01-22"> <strong>Lunes</strong> 22 enero </time> 
-											<div>
-												<span class="simbPng mg6">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s6" data="sp2"></use>
-													</svg>
-												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="1|0" title="Lluvia 1 mm">1</abbr> 
-											</div>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 15°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax7" class="changeUnitT" data="15|0|"> 15° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 5°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin7" class="changeUnitT" data="5|0|"> 5° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC58" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA58" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR7" class="changeUnitW" title="Viento" data="58|0"> 58 km/h </abbr> 
-										</dd>
-										
-									</dl>
-									<dl class="oldDl cambioDia 9/3">
-										<dt>
-											<time datetime="2018-01-23"> <strong>Martes</strong> 23 enero </time> 
-											<div>
-												<span class="simbPng mg5">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s5" data="sp2"></use>
-													</svg>
-												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="0.3|0" title="Lluvia 0.3 mm">0.3</abbr> 
-											</div>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 14°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax8" class="changeUnitT" data="14|0|"> 14° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 4°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin8" class="changeUnitT" data="4|0|"> 4° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC48" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA48" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR8" class="changeUnitW" title="Viento" data="30|0"> 30 km/h </abbr> 
-										</dd>
-										
-									</dl>
-									<dl class="oldDl bTop cambioDia 10/3">
-										<dt>
-											<time datetime="2018-01-24"> <strong>Miércoles</strong> 24 enero </time> 
-											<span class="simbPng pdleft">
-												<svg class="symb sb2" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s2" data="sp2"></use>
-												</svg>
-											</span>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 12°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax9" class="changeUnitT" data="12|0|"> 12° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 4°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin9" class="changeUnitT" data="4|0|"> 4° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC47" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA47" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR9" class="changeUnitW" title="Viento" data="34|0"> 34 km/h </abbr> 
-										</dd>
-										
-									</dl>
-									<dl class="oldDl cambioDia 11/3">
-										<dt>
-											<time datetime="2018-01-25"> <strong>Jueves</strong> 25 enero </time> 
-											<span class="simbPng pdleft">
-												<svg class="symb sb2" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s2" data="sp2"></use>
-												</svg>
-											</span>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 17°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax10" class="changeUnitT" data="17|0|"> 17° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 0°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin10" class="changeUnitT" data="0|0|"> 0° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC40" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA40" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR10" class="changeUnitW" title="Viento" data="22|0"> 22 km/h </abbr> 
-										</dd>
-										
-									</dl>
-									<dl class="oldDl cambioDia 12/3">
-										<dt>
-											<time datetime="2018-01-26"> <strong>Viernes</strong> 26 enero </time> 
-											<span class="simbPng pdleft">
-												<svg class="symb sb2" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s2" data="sp2"></use>
-												</svg>
-											</span>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 19°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax11" class="changeUnitT" data="19|0|"> 19° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 6°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin11" class="changeUnitT" data="6|0|"> 6° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC47" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA47" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR11" class="changeUnitW" title="Viento" data="34|0"> 34 km/h </abbr> 
-										</dd>
-										
-									</dl>
-									<dl class="oldDl cambioDia 13/3">
-										<dt>
-											<time datetime="2018-01-27"> <strong>Sábado</strong> 27 enero </time> 
-											<div>
-												<span class="simbPng mg6">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s6" data="sp2"></use>
-													</svg>
-												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="0.3|0" title="Lluvia 0.3 mm">0.3</abbr> 
-											</div>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 12°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax12" class="changeUnitT" data="12|0|"> 12° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 4°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin12" class="changeUnitT" data="4|0|"> 4° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC47" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA47" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR12" class="changeUnitW" title="Viento" data="37|0"> 37 km/h </abbr> 
-										</dd>
-										
-									</dl>
-									<dl class="oldDl cambioDia 14/3">
-										<dt>
-											<time datetime="2018-01-28"> <strong>Domingo</strong> 28 enero </time> 
-											<div>
-												<span class="simbPng mg6">
-													<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#s6" data="sp2"></use>
-													</svg>
-												</span>
-												<abbr class="T4Loc changeUnitR color-texto-t50-0" data="3|0" title="Lluvia 3 mm">3</abbr> 
-											</div>
-										</dt>
-										<dd class="d1">
-											<abbr title="Temperatura Máxima 12°">
-												<span>
-													<svg class="tMax-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMax" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmax13" class="changeUnitT" data="12|0|"> 12° </span> 
-											</abbr>
-											<abbr title="Temperatura Mínima 4°">
-												<span>
-													<svg class="tMin-svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#TMin" data="sp1"></use>
-													</svg>
-												</span>
-												<span id="Tmin13" class="changeUnitT" data="4|0|"> 4° </span> 
-											</abbr>
-										</dd>
-										<dd class="d2">
-											<span>
-												<svg class="iC72" version="1.1" xmlns="http://www.w3.org/2000/svg">
-													<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#windA72" data="sp2"></use>
-												</svg>
-											</span>
-											<abbr id="wR13" class="changeUnitW" title="Viento" data="64|0"> 64 km/h </abbr> 
-										</dd>
-										
 									</dl>
 								</div>
 							</div>
