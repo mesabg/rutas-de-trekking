@@ -41,19 +41,20 @@ export class LoaderApi {
                 return country;
             });
             let parks:any[] = await this.parks.getParks();
-            //let routes = await this.routes.getAllRoutes();
-            let routes:any[] = (await Promise.all(parks.map((park) => this.routes.getRoutes(park.slug)))).map((_routes, index) => {
+            let routes:any[] = (await this.routes.getAllRoutes()).map(_route => {
+                _route.puntos = JSON.parse(_route.puntos);
+                _route.altura = Math.round(parseFloat(_route.altura));
+                _route.distancia = Math.round(parseFloat(_route.distancia));
+                _route.park_id = _route.land_id;
+                return _route;
+            });
+            /*let routes:any[] = (await Promise.all(parks.map((park) => this.routes.getRoutes(park.slug)))).map((_routes, index) => {
                 return _routes.map(_route => {
-                    _route.puntos = JSON.parse(_route.puntos);
-                    _route.altura = Math.round(parseFloat(_route.altura));
-                    _route.distancia = Math.round(parseFloat(_route.distancia));
-                    _route.park_id = parks[index].id;
-                    return _route;
                 });
-            }).reduce((previous, current) => previous.concat(current), []);
+            }).reduce((previous, current) => previous.concat(current), []);*/
             /*console.log("Countries are :: ", countries);
-            console.log("Parks are :: ", parks);
-            console.log("Routes are :: ", routes);*/
+            console.log("Parks are :: ", parks);*/
+            console.log("Routes are :: ", routes);
 
             //-- Save in local storage
             await this.storage.set('countries', countries);

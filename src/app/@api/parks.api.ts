@@ -54,15 +54,18 @@ export class ParksApi {
 
     public async getParkWeather(parkId:number):Promise<any>{
         try {          
-            let park = await this.getParkByIdFromLocal(parkId);
+            /*let park = await this.getParkByIdFromLocal(parkId);
             console.log("Park is :: ", park);
             console.log("Clima dia :: ", park.clima_dia);
             console.log("Clima hora :: ", park.clima_hora);
             let clima = {
                 dia: await this.toJSON(await this.apiService.anyoriginGet(park.clima_dia)),
                 hora: await this.toJSON(await this.apiService.anyoriginGet(park.clima_hora))
+            };*/
+            return {
+                dia: await this.apiService.get(`weather/${parkId}?dia=true`),
+                hora: await this.apiService.get(`weather/${parkId}?hora=true`)
             };
-            return clima;
         } catch (error) {
             console.log("An error ocurred trying to retrieve the weather");
             return error;
