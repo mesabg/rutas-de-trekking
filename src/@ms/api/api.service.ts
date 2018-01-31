@@ -15,11 +15,11 @@ import $ from 'jquery';
 import { SocketIO } from './socket.class';
 
 const environment = {
-	production: true,
-	anyorigin: true,
+	production: false,
+	anyorigin: false,
 	API:{
-		//baseURL: 'http://trekking.pixeloidestudios.com/api/v1/',
-		baseURL: 'http://rutasdetrekking.com/api/v1/',
+		baseURL: 'http://trekking.pixeloidestudios.com/api/v1/',
+		//baseURL: 'http://rutasdetrekking.com/api/v1/',
 		get: function():string{ return environment.API.baseURL; }
 	},
 	SOCKET:{
