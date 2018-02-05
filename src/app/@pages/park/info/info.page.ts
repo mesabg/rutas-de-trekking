@@ -25,17 +25,22 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 	constructor(
 		public navParams: NavParams,
 		private storage:Storage,
-		private api:ParksApi) {}
+		private api:ParksApi,
+		private preferences:PreferencesService) {}
 
 	/**
 	 * Events
 	 */
 	ngOnInit() {}
-	ngAfterViewInit() { }
+	ngAfterViewInit() {
+		PreferencesService.propertyChange.subscribe((property:{key:string; value:string}) => {
+			if (property.key === 'pref_language') this.retrieve();
+		});
+	}
 	ionViewDidLoad(){ }
-	//async ionViewWillEnter(){ await this.retrieve(); console.log("Here we are"); }
-	async ionViewDidEnter(){ console.log("Here we are"); await this.retrieve(); }
-	ionViewWillLeave(){ }
+	ionViewWillEnter(){ }
+	ionViewWillLeave(){ } 
+	async ionViewDidEnter(){ await this.retrieve(); }
 
 
 	/**
@@ -46,6 +51,5 @@ export class ParkInfoPage implements OnInit, AfterViewInit {
 		let language = await this.storage.get( PreferencesService.PREF_LANGUAGE );
 		this.description = park[`descripcion_${language}`];
 		this.description = this.description === null || this.description === undefined ? '' : this.description;
-		console.log("Descripcion del parque :: ", this.description);
 	}
 }

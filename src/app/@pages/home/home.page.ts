@@ -102,9 +102,7 @@ export class HomePage implements OnInit, AfterViewInit, OnChanges {
 		await this.loader.dataArrive();
 
 		let paises = await this.api.getCountriesFromLocal();
-		console.log("Paises ", paises);
-
-		//-- Wait till´ initial view is rendered
+		//-- Wait till´ initial view is renderer
 		if (!this.viewInit) 
 			this.afterViewInit.subscribe(() => {
 				//-- View is initiated, go to process

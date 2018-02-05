@@ -37,8 +37,6 @@ export class ConfigurationPage implements OnInit {
 		this.PREF_LANGUAGE = PreferencesService.PREF_LANGUAGE;
 		this.PREF_NOTIFICATION = PreferencesService.PREF_NOTIFICATION;
 		this.PREF_SOUND = PreferencesService.PREF_SOUND;
-		console.log("Constructor");
-		console.log("Preferences are :: ", this.preferences, PreferencesService.PREF_DISTANCE);
 	}
 
 	
@@ -77,7 +75,5 @@ export class ConfigurationPage implements OnInit {
 		  = await this.preferencesService._getPreference(PreferencesService.PREF_NOTIFICATION);
 		this.preferences[PreferencesService.PREF_SOUND]
 			= await this.preferencesService._getPreference(PreferencesService.PREF_SOUND);
-		console.log("Enter function");
-		console.log("Preferences are :: ", this.preferences);
 	}
 }

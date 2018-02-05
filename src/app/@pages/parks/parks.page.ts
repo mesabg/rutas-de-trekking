@@ -59,7 +59,6 @@ export class ParksPage implements OnInit {
 	 */
 	private async retrieveData(countryId:number):Promise<any>{
 		this.parks = this.parksApi.getParksFromLocal(countryId);
-		console.log("Parks here are ", await this.parksApi.getParksFromLocal(countryId));
 		let country = await this.countriesApi.getCountryFromLocal(countryId);
 		this.header = {
 			img: country.logo == undefined ? null : country.logo,

@@ -23,11 +23,7 @@ export class LayoutComponent implements OnInit {
 		platform.ready().then(async () => {
 			// Okay, so the platform is ready and our plugins are available.
 			// Here you can do any higher level native things you might need.
-			console.log("Platform is ready");
 			let localForage:LocalForage = await storage.ready();
-			console.log("Local forage is ready", localForage);
-			
-
 			statusBar.styleDefault();
 			splashScreen.hide();
 		});
@@ -37,7 +33,6 @@ export class LayoutComponent implements OnInit {
 
 	//-- General functions
 	displayPage(name:string){
-		console.log("Moving on :: ", name);
 		let previousPages:ViewController[] = this.nav.getViews();
 		let canMove:Boolean = true;
 		previousPages.forEach((page) => {

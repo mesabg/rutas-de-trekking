@@ -62,10 +62,9 @@ export class ParkPage implements OnInit, AfterViewInit {
 	 */
 	private async retrieve(){
 		this.park = await this.api.getParkByIdFromLocal( parseInt(this.navParams.get('park-id')) );
-		console.log("Park is :: ", this.park);
 	}
 
 	public dispose():void{
-		console.log("This is a message");
+		
 	}
 }

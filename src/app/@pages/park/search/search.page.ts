@@ -19,6 +19,8 @@ import $ from 'jquery';
 export class ParkSearchPage implements OnInit {
 	private park:Park;
 	@ViewChild('main') private main:ElementRef;
+	@ViewChild('perDaysView') private perDaysView:ElementRef;
+	@ViewChild('perHoursView') private perHoursView:ElementRef;
 	
 	public parkName:string; 
 	public currentHour:string;
@@ -27,8 +29,11 @@ export class ParkSearchPage implements OnInit {
 	public lunaDescripcion:string;
 	public lunaIcono:string;
 	public tempMax:string;
-
 	public days:any[];
+	public perDays:any[];
+
+	public buttonText:string = 'Visualizar por horas';
+	public visualization:string = 'days';
 
 	constructor(
 		public navParams: NavParams, 
@@ -42,7 +47,6 @@ export class ParkSearchPage implements OnInit {
 	ionViewDidLoad(){ }
 	ionViewWillLeave(){ }
 	async ionViewDidEnter(){
-		console.log("Entering Weather Page");
 		this.retrieve();
 		let self = this;
 		setInterval(function(){ self.retrieve(); }, 8*60*1000);
@@ -56,10 +60,7 @@ export class ParkSearchPage implements OnInit {
 
 			//-- Get API data && set properly
 			let clima = await this.api.getParkWeather( parseInt(this.navParams.get('park-id')) );
-			console.log("Clima is :: ", clima);
-
 			let diaActual = clima.hora.location.day[0];
-			console.log("Día actual is :: ", diaActual);
 
 			//-- Set params
 			this.currentHour = diaActual.local_info['@attributes'].local_time;
@@ -67,7 +68,7 @@ export class ParkSearchPage implements OnInit {
 			this.cieloIcono = `../../../../assets/icons/tiempo-weather/galeria5/${diaActual.symbol['@attributes'].value}.png`;
 			this.lunaDescripcion = diaActual.moon['@attributes'].desc;
 			this.lunaIcono = `../../../../assets/icons/luna-moon/${diaActual.moon['@attributes'].symbol}.png`;
-			this.tempMax = diaActual.tempmax['@attributes'].value;
+			this.tempMax = diaActual.tempmax['@attributes'].value + '°';
 
 			this.days = clima.hora.location.day.map(day => {
 				let date = {
@@ -101,11 +102,62 @@ export class ParkSearchPage implements OnInit {
 				};
 			});
 
-			console.log("Days are :: ", this.days);
-			
+
+			this.perDays = clima.hora.location.day.map(day => {
+				let date = {
+					anio: parseInt(day['@attributes'].value.slice(0, 4)), 
+					month: parseInt(day['@attributes'].value.slice(4, 6)), 
+					day: parseInt(day['@attributes'].value.slice(6, 8))
+				};
+				let dateServer = new Date();
+				dateServer.setFullYear(date.anio);
+				dateServer.setMonth(date.month);
+				dateServer.setDate(date.day);
+				dateServer.setHours(0);
+				dateServer.setMinutes(0);
+				dateServer.setMilliseconds(0);
+
+				return {
+					date: {
+						name: day['@attributes'].name,
+						value: dateServer
+					},
+					hours: day.hour.map(hour => {
+						return {
+							value: hour['@attributes'].value,
+							weather: {
+								image: `../../../../assets/icons/tiempo-weather/galeria5/${hour.symbol['@attributes'].value}.png`,
+								rain: hour.rain['@attributes'].value
+							},
+							temp: hour.temp['@attributes'].value,
+							wind: {
+								image: `../../../../assets/icons/viento-wind/galeria2/${day.wind['@attributes'].symbol}.png`,
+								value: `${day.wind['@attributes'].value} ${day.wind['@attributes'].unit}`
+							}
+						}
+					})
+				};
+			});
 		} catch (error) {
 			console.log("An error ocurred");
 			console.log("Details :: ", error);
+		}
+	}
+
+
+	public changeVisualization(){
+		if (this.visualization === 'days'){ 
+			//-- Se muestra como days, se va a cambiar a hours
+			this.buttonText = 'Visualizar por días';
+			this.visualization = 'hours';
+			$(this.perHoursView.nativeElement).css('display', 'initial');
+			$(this.perDaysView.nativeElement).css('display', 'none');
+		}else if (this.visualization === 'hours'){
+			//-- Se muestra como hours, se va a cambiar a days
+			this.buttonText = 'Visualizar por horas';
+			this.visualization = 'days';
+			$(this.perDaysView.nativeElement).css('display', 'initial');
+			$(this.perHoursView.nativeElement).css('display', 'none');
 		}
 	}
 }

@@ -55,8 +55,6 @@ export class ApiService {
 	 */
 	public async get(method:string):Promise<any> {
 		let url = environment.anyorigin ? `http://anyorigin.com/go?url=${encodeURIComponent(this.baseUrl + method)}&callback=?` : this.baseUrl + method;
-		console.log("URL is ", url);
-
 		try {
 			let response = await this.fullUrlGet(url);
 			if (environment.anyorigin) return response.contents;

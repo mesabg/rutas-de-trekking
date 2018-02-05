@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class PreferencesService {
+  static propertyChange:EventEmitter<{key:string; value:string;}> = new EventEmitter<{key:string; value:string;}>();
 
   static get parameters() {
     return [[Storage]];
@@ -19,31 +20,27 @@ export class PreferencesService {
   constructor(private storage:Storage) {}
 
   async initializePreferences(){
-    console.log('Initializing preferences');
-
     return new Promise((resolve, reject) => {
       this.storage.get(PreferencesService.PREF_INITIALIZED).then(async (result) => {
         if (result == null || result == false){
-          console.log('Initializing preferences with default values');
           await this.storage.set(PreferencesService.PREF_INITIALIZED, true);
           await this.storage.set(PreferencesService.PREF_DISTANCE, "km");
           await this.storage.set(PreferencesService.PREF_TEMPERATURE, "c");
           await this.storage.set(PreferencesService.PREF_LANGUAGE, "es");
           await this.storage.set(PreferencesService.PREF_NOTIFICATION, true);
           await this.storage.set(PreferencesService.PREF_SOUND, true);
-
-          /*await this.storage.forEach((value, key, index) => {
-            console.log("key-value :: ", key, value);
-          });*/
-        } else console.log("Getting values from storage");
+        }
         resolve();
       });
     });
   }
 
   async setPreference(key, value){
-    console.log("Setting preference");
     await this.storage.set(key, value);
+    PreferencesService.propertyChange.emit({
+      key: key,
+      value: await this.storage.get(key)
+    });
   }
 
   async _getAllPreferences(prefs){
